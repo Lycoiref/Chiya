@@ -5,3 +5,11 @@
 ## 使用教程
 
 <https://koishi.chat/manual/starter/boilerplate.html>
+
+```bash
+    yarn install
+    cd .. && npm install dotenv -g
+    cd Koishi_Demo
+    npx prisma generate
+    yarn dev
+```

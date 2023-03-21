@@ -300,8 +300,8 @@ model setu {
 
 model sign_group_users {
   id                  Int      @id @default(autoincrement())
-  user_qq             BigInt
-  group_id            BigInt
+  user_qq             String   @db.VarChar
+  group_id            String   @db.VarChar
   checkin_count       Int
   checkin_time_last   DateTime @db.Timestamptz(6)
   impression          Decimal  @db.Decimal
