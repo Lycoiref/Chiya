@@ -74,6 +74,7 @@ export function apply(ctx: Context) {
                         specify_probability: 0
                     }
                 })
+                // 其实没成功
                 session.send('签到成功')
             }
         }
