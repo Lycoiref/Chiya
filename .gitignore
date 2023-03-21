@@ -16,7 +16,7 @@ tsconfig.tsbuildinfo
 .eslintcache
 .DS_Store
 .idea
-# .env
+.env.local
 .vscode
 .vite
 *.suo
