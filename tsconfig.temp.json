@@ -2,9 +2,6 @@
   "files": [],
   "references": [
     {
-      "path": "./external/lycoiref-test"
-    },
-    {
       "path": "./external/database-postgresql"
     }
   ]
