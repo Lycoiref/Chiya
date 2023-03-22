@@ -1,8 +1,20 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./external/code-run"
-    }
-  ]
+    "files": [],
+    "references": [
+        {
+            "path": "./external/lycoiref-test"
+        },
+        {
+            "path": "./external/help1"
+        },
+        {
+            "path": "./external/daily-sign"
+        },
+        {
+            "path": "./external/beauty-imgs"
+        },
+        {
+            "path": "./external/code-run"
+        }
+    ]
 }
