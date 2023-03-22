@@ -81,6 +81,7 @@
     "koishi": "^4.12.1",
     "koishi-plugin-assets-local": "^3.0.3",
     "koishi-plugin-desktop": "^0.0.3",
+    "koishi-plugin-github": "5.3.0",
     "koishi-plugin-gocqhttp": "^3.4.5",
     "koishi-plugin-puppeteer": "^3.4.11",
     "playwright": "^1.31.2",
