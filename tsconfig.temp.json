@@ -2,6 +2,15 @@
   "files": [],
   "references": [
     {
+      "path": "./external/lycoiref-test"
+    },
+    {
+      "path": "./external/help1"
+    },
+    {
+      "path": "./external/daily-sign"
+    },
+    {
       "path": "./external/beauty-imgs"
     }
   ]
