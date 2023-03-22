@@ -85,6 +85,7 @@
     "koishi-plugin-desktop": "^0.0.3",
     "koishi-plugin-gocqhttp": "^3.4.5",
     "koishi-plugin-puppeteer": "^3.4.11",
+    "playwright": "^1.31.2",
     "ultimate-text-to-image": "^1.0.1"
   }
 }
