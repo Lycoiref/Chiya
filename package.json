@@ -78,6 +78,8 @@
     "@koishijs/plugin-sandbox": "^2.7.1",
     "@koishijs/plugin-status": "^7.1.2",
     "@prisma/client": "^4.11.0",
+    "jsdom": "^21.1.1",
+    "jsdom-screenshot": "^4.0.0",
     "koishi": "^4.12.1",
     "koishi-plugin-assets-local": "^3.0.3",
     "koishi-plugin-desktop": "^0.0.3",

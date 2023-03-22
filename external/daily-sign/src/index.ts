@@ -1,13 +1,37 @@
-import { Context, Schema } from 'koishi'
+import { Context, Schema, h } from 'koishi'
 import { PrismaClient } from '@prisma/client'
-import { randomInt } from 'crypto'
+import * as jsdom from 'jsdom'
+import { generateImage } from 'jsdom-screenshot'
+// let test_img = require('../../../test.png')
 
+const { JSDOM } = jsdom
 const prisma = new PrismaClient()
 
 let generateRandomNum = (mean: number, variance: number) => {
     let symbol = Math.random() > 0.5 ? 1 : -1
     let random_num = (3 / (Math.random() * mean)) * symbol + Math.random() * variance;
     return random_num
+}
+
+let generateSignImage = async () => {
+    let window = (new JSDOM(`
+            <body style="width: 1920px; height: 1080px;">
+                签到成功
+            </body>
+            <style>
+                body{color: red;display:flex; justify-content: center; align-items: center;font-size: 120px;}
+            </style>
+            `, { pretendToBeVisual: true })).window
+    let { document } = window
+    global.document = document
+    generateImage({ viewport: { width: 1920, height: 1080 } }).then(async (image) => {
+        let fs = require('fs')
+        await fs.promises.writeFile('test.png', image)
+        console.log("图片生成成功")
+        return new Promise((resolve, reject) => {
+            resolve(image)
+        })
+    })
 }
 
 export const name = 'daily-sign'
@@ -48,6 +72,8 @@ export function apply(ctx: Context) {
                 session.send(`签到成功，好感度 + ${random_num.toFixed(2)}\n`
                     + `上次签到时间：${checkin_time_last_str}\n`
                     + `当前好感度：${impression.toFixed(2)}`)
+                let sign_image = await generateSignImage()
+                session.send(h('image', { url: 'file:///E:\\Program\\Nodejs\\koishi\\test.png' }))
                 await prisma.sign_group_users.update({
                     where: {
                         user_qq_group_id: {
@@ -77,6 +103,16 @@ export function apply(ctx: Context) {
                 // 其实没成功
                 session.send('签到成功')
             }
+        } else if (session.content === 'test') {
+
         }
     })
 }
+
+// generateImage({ debug: true }).then((image) => {
+//     console.log(image);
+//     // 将<Buffer>保存为PNG图片
+//     let fs = require('fs')
+//     fs.writeFileSync('test.png', image)
+// })
+
