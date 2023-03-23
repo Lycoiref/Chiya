@@ -44,7 +44,6 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:
       root: .
-  lycoiref-test:sflv60: null
   daily-sign:9ca8pn: null
   ~help:zx40fk: {}
   ~daily-sign:3ud5i7: {}
@@ -55,6 +54,8 @@ plugins:
   search-anime:qxj9ro: null
   gitee-utils:ndgwe8: null
   ~github:4164nt: {}
+  ~logger:8p7qia: {}
+  test:yma65s: null
 nickname:
   - '["Chiya", "chiya"]'
 host: 0.0.0.0

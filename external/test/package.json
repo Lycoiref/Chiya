@@ -1,5 +1,5 @@
 {
-  "name": "koishi-plugin-lycoiref-test",
+  "name": "koishi-plugin-test",
   "description": "",
   "version": "0.0.1",
   "main": "lib/index.js",
