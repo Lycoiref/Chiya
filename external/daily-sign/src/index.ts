@@ -21,10 +21,10 @@ export function apply(ctx: Context) {
         })
     })
     // write your plugin here
-    ctx.on('message', async (session) => {
+    ctx.middleware(async (session, next) => {
+        // console.log('进入中间件')
         if (session.content === '签到' && session.guildId !== '436862917') {
             try {
-
                 let user_qq = session.userId
                 let group_id = session.guildId
                 console.log(user_qq, group_id)
@@ -51,12 +51,13 @@ export function apply(ctx: Context) {
                     session.send('签到成功')
                 }
             } catch (e) {
+                return '签到失败'
                 console.log(e)
                 // let img_buffer = await getSignImage()
                 // await session.send(h.image(img_buffer as Buffer, 'image/png'))
             }
-        } else if (session.content === 'test') {
-
+        } else {
+            return next()
         }
     })
 }
