@@ -2,6 +2,27 @@
   "files": [],
   "references": [
     {
+      "path": "./external/test"
+    },
+    {
+      "path": "./external/search-anime"
+    },
+    {
+      "path": "./external/recognizetion-pic"
+    },
+    {
+      "path": "./external/invite-manager"
+    },
+    {
+      "path": "./external/help1"
+    },
+    {
+      "path": "./external/gitee-utils"
+    },
+    {
+      "path": "./external/daily-sign"
+    },
+    {
       "path": "./external/user-authority-operation"
     },
     {
@@ -15,6 +36,9 @@
     },
     {
       "path": "./external/code-run"
+    },
+    {
+      "path": "./external/beauty-imgs"
     },
     {
       "path": "./external/chatgpt"

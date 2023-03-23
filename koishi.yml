@@ -33,7 +33,7 @@ plugins:
     assets-local: {}
   group:adapter:
     adapter-onebot:
-      selfId: '898813707'
+      selfId: '1453276792'
     ~adapter-discord: {}
     ~adapter-telegram: {}
     ~adapter-kook: {}
@@ -44,7 +44,6 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:
       root: .
-  lycoiref-test:sflv60: null
   daily-sign:9ca8pn: null
   ~help:zx40fk: {}
   ~daily-sign:3ud5i7: {}
@@ -52,3 +51,12 @@ plugins:
   help1:cb0g91: null
   ~help1:dob1nz: {}
   code-run:b01iby: null
+  search-anime:qxj9ro: null
+  gitee-utils:ndgwe8: null
+  ~github:4164nt: {}
+  ~logger:8p7qia: {}
+  test:yma65s: null
+  invite-manager:w11nuk: null
+nickname:
+  - '["Chiya", "chiya"]'
+host: 127.0.0.1

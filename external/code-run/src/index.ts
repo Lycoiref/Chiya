@@ -8,7 +8,7 @@ export const name = 'code-run'
 export interface Config {}
 
 export const Config: Schema<Config> = Schema.object({
-  apiToken: Schema.string().default('e80ac2bf-215f-4eaf-9fd6-d1b79bb31a2b').description(''),
+  apiToken: Schema.string().default(process.env.GLOT_API_KEY).description(''),
   defaultLanguage: Schema.string().default('javascript').description('javascript'),
 })
 
