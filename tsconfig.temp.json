@@ -2,7 +2,25 @@
   "files": [],
   "references": [
     {
+      "path": "./external/user-authority-operation"
+    },
+    {
+      "path": "./external/lycoiref-test"
+    },
+    {
+      "path": "./external/help1"
+    },
+    {
+      "path": "./external/daily-sign"
+    },
+    {
       "path": "./external/code-run"
+    },
+    {
+      "path": "./external/chatgpt"
+    },
+    {
+      "path": "./external/beauty-imgs"
     }
   ]
 }

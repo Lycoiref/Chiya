@@ -27,6 +27,7 @@ model ban_users {
   ban_level Int
   ban_time  BigInt?
   duration  BigInt?
+  group_id  BigInt  @default(0)
 }
 
 model bilibili_sub {
@@ -165,16 +166,6 @@ model hdu_auto_sign_user {
   session_update_time DateTime? @db.Timestamptz(6)
 
   @@unique([user_qq, hdu_account], map: "hdu_punch_idx1")
-}
-
-model level_users {
-  id         Int    @id @default(autoincrement())
-  user_qq    BigInt
-  group_id   BigInt
-  user_level BigInt
-  group_flag Int
-
-  @@unique([user_qq, group_id], map: "level_group_users_idx1")
 }
 
 model mihoyobbs {
@@ -322,4 +313,14 @@ model word_bank {
   create_time DateTime @db.Timestamp(6)
   update_time DateTime @db.Timestamp(6)
   id          Int      @id @default(autoincrement())
+}
+
+model authority_users {
+  id             Int    @id(map: "level_users_pkey") @default(autoincrement())
+  user_qq        BigInt
+  group_id       BigInt
+  user_authority BigInt
+  group_flag     Int
+
+  @@unique([user_qq, group_id], map: "level_group_users_idx1")
 }
