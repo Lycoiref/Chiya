@@ -7,17 +7,26 @@ export interface Config { }
 export const Config: Schema<Config> = Schema.object({})
 
 export function apply(ctx: Context) {
-    let bot = ctx.bots[0]
-    // write your plugin here
-    ctx.router['post']('/gitee', async (req, res) => {
-        // 监听gitee的Webhook请求
-        let data: any = req.body
-        let commits: any = data.commits
-        for (let commit of commits) {
-            let message = `提交者：${commit.author.name}\n提交信息：${commit.message}\n提交时间：${commit.timestamp}\n提交链接：${commit.url}`
-            await bot.sendMessage('536635853', message)
+    let bot = ctx.bots[1]
+    ctx.router['post']('/gitee', async (ctx) => {
+        try {
+            // console.log(ctx.request.body)
+            // 监听gitee的Webhook请求
+            let data: any = ctx.request.body
+            let commits: any = data.commits
+            for (let commit of commits) {
+                let message = `提交者：${commit.author.name}\n提交信息：${commit.message}\n提交时间：${commit.timestamp}\n提交链接：${commit.url}`
+                await bot.sendMessage('536635853', message)
+                console.log(message)
+            }
+            // 返回成功
+            ctx.body = 'success'
+        } catch (e) {
+            console.log(e);
+            await bot.sendMessage('536635853', 'test')
         }
     })
+    // write your plugin here
 }
 
 let data = {
