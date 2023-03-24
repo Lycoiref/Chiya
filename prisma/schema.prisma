@@ -23,11 +23,12 @@ model bag_users {
 }
 
 model ban_users {
-  user_qq   BigInt  @id @unique(map: "ban_group_users_idx1") @default(autoincrement())
+  user_qq   BigInt  @unique(map: "ban_group_users_idx1") @default(autoincrement())
   ban_level Int
   ban_time  BigInt?
   duration  BigInt?
   group_id  BigInt  @default(0)
+  @@id([user_qq, group_id])
 }
 
 model bilibili_sub {
