@@ -62,8 +62,6 @@ plugins:
   test:yma65s: null
   invite-manager:w11nuk: null
   ~invite-manager:z77zmb: {}
-  ~user-authority-operation:axb7up: {}
-  chat-history:8qq6in: null
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1

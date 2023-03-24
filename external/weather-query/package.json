@@ -1,6 +1,6 @@
 {
-  "name": "koishi-plugin-test",
-  "description": "",
+  "name": "koishi-plugin-weather-query",
+  "description": "用来查询天气的插件捏",
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

@@ -1,6 +1,5 @@
 import { Context, Schema, Quester} from 'koishi'
 import {h} from 'koishi'
-// 能支持的语言类型
 // 在 glot.io 上run code
 import { LANGUAGES } from './languages'
 export const name = 'code-run'
