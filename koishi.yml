@@ -33,7 +33,7 @@ plugins:
     assets-local: {}
   group:adapter:
     adapter-onebot:
-      selfId: '1453276792'
+      selfId: '898813707'
     ~adapter-discord: {}
     ~adapter-telegram: {}
     ~adapter-kook: {}
@@ -44,6 +44,7 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:
       root: .
+    user-authority-operation:fkifa2: null
   daily-sign:9ca8pn: null
   ~help:zx40fk: {}
   ~daily-sign:3ud5i7: {}
