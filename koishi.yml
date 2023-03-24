@@ -44,6 +44,7 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:
       root: .
+    user-authority-operation:fkifa2: null
   daily-sign:9ca8pn: null
   ~help:zx40fk: {}
   ~daily-sign:3ud5i7: {}
@@ -57,6 +58,7 @@ plugins:
   ~logger:8p7qia: {}
   test:yma65s: null
   invite-manager:w11nuk: null
+  ~invite-manager:z77zmb: {}
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1

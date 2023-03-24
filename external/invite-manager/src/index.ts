@@ -1,9 +1,8 @@
-import { Context, Schema, Session } from 'koishi'
-import { h } from 'koishi'
-import { send } from 'process'
-export const name = 'invite-manager'
+import { Context, Schema, h } from 'koishi'
 
+export const name = 'invite-manager'
 export interface Config { }
+
 export const Config: Schema<Config> = Schema.object({})
 
 export function apply(ctx: Context) {
@@ -11,16 +10,13 @@ export function apply(ctx: Context) {
         status: 0,
         messageId: null
     }
-    let hava_group_request = {
+    let have_guild_request = {
         status: 0,
         messageId: null
     }
-    // write your plugin here
-    // 入群欢迎
     let bot = ctx.bots[1]
     let SUPER: string = '3514392356'
     ctx.on('guild-member-added', (session) => {
-        console.log('1111')
         session.send('欢迎' + h('at', { id: session.userId }) + '入群' + '\n' + h.image('http://5b0988e595225.cdn.sohucs.com/images/20180904/11eb6dfe54e5402c85f9ba806b63ac76.png'))
     })
     // 好友申请
@@ -35,16 +31,12 @@ export function apply(ctx: Context) {
                 session.bot.sendPrivateMessage(masterId, content);
                 have_friend_request.status = 1
                 have_friend_request.messageId = session.messageId
-                // ctx.emit('ask_if_agree' as any, session)
             }
         }
     })
-
     ctx.middleware(async (session, next) => {
-        // console.log(have_friend_request.messageId)
         if (have_friend_request.status == 1) {
             if (session.content === '同意') {
-                // friend_req()
                 await bot.handleFriendRequest(have_friend_request.messageId, true)
                 have_friend_request.status = 0
                 return '已同意好友申请'
@@ -54,38 +46,43 @@ export function apply(ctx: Context) {
                 have_friend_request.status = 0
                 return '已拒绝好友申请'
             }
+        } else {
+            // 继续传递事件否则阻断
+            return next()
         }
     })
-    // 入群申请
+    // 群邀请
     ctx.on('guild-request', async (session) => {
-        if (hava_group_request.messageId === session.messageId) {
-            hava_group_request.messageId = null
-        } else {
+        if (have_guild_request.messageId === session.messageId) {
+            have_guild_request.messageId = null
+        }
+        else {
             let user = await session.bot.getUser(session.userId)
             let guild = await session.bot.getGuild(session.channelId)
-            let content = '入群请求来自:\nQQ:' + user.username + '\n群号:' + guild.guildName
+            const content = '群邀请来自:\nQQ:' + user.username + '\n' + '加入群:' + guild.guildName
             let masterId = SUPER
             if (masterId != null && masterId != '') {
                 session.bot.sendPrivateMessage(masterId, content);
-                hava_group_request.status = 1
-                hava_group_request.messageId = session.messageId
-                // ctx.emit('ask_if_agree' as any, session)
+                have_guild_request.status = 1
+                have_guild_request.messageId = session.messageId
             }
         }
     })
     ctx.middleware(async (session, next) => {
-        console.log('111')
-        if (hava_group_request.status == 1) {
+        if (have_guild_request.status == 1) {
             if (session.content === 'ok') {
-                await bot.handleGuildRequest(hava_group_request.messageId, true)
-                hava_group_request.status = 0
-                return '已同意入群申请'
+                await session.bot.handleGuildRequest(have_guild_request.messageId, true, null)
+                have_guild_request.status = 0
+                return '已同意群邀请'
             }
             else if (session.content === 'no') {
-                await bot.handleGuildRequest(hava_group_request.messageId, false)
-                hava_group_request.status = 0
-                return '已拒绝入群申请'
+                await session.bot.handleGuildRequest(have_guild_request.messageId, false, null)
+                have_guild_request.status = 0
+                return '已拒绝群邀请'
             }
+        } else {
+            return next()
         }
-    })
+    }
+    )
 }
