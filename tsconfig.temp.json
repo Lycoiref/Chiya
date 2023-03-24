@@ -2,6 +2,9 @@
   "files": [],
   "references": [
     {
+      "path": "./external/user-authority-operation"
+    },
+    {
       "path": "./external/test"
     },
     {
@@ -27,6 +30,9 @@
     },
     {
       "path": "./external/chatgpt"
+    },
+    {
+      "path": "./external/chat-history"
     },
     {
       "path": "./external/beauty-imgs"

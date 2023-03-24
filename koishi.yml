@@ -9,6 +9,7 @@ plugins:
     ~inspect: {}
     locales: {}
     rate-limit: {}
+    ~chat-history:hu3x57: {}
   group:console:
     analytics: {}
     console:
@@ -32,8 +33,10 @@ plugins:
     ~database-mongo: {}
     assets-local: {}
   group:adapter:
-    adapter-onebot:
+    adapter-onebot:1:
       selfId: '898813707'
+    adapter-onebot:2:
+      selfId: '1319380872'
     ~adapter-discord: {}
     ~adapter-telegram: {}
     ~adapter-kook: {}
@@ -59,6 +62,8 @@ plugins:
   test:yma65s: null
   invite-manager:w11nuk: null
   ~invite-manager:z77zmb: {}
+  ~user-authority-operation:axb7up: {}
+  chat-history:8qq6in: null
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1

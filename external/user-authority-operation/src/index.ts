@@ -12,12 +12,11 @@ export const Config: Schema<Config> = Schema.object({})
 
 export function apply(ctx: Context) {
   ctx.middleware(async (session, next) => {
-    await session.send("ok")
-    if(session.subtype === "group"){
-      if(session.content === ".ban"){
-        session.send("ok")
-      }
-    }
+    // if(session.subtype === "group"){
+    //   if(session.content === ".ban"){
+    //     await session.send("ok")
+    //   }
+    // }
     // if(session.subtype === "group" && session.guildId === "765557440") {
     //   let user = await getUserAuthority(parseInt(session.userId),parseInt(session.guildId))
     //   console.log("user=" + user)

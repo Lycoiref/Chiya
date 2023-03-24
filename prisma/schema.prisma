@@ -76,7 +76,6 @@ model chat_history {
   user_qq     BigInt
   group_id    BigInt?
   text        String?
-  plain_text  String?
   create_time DateTime @db.Timestamptz(6)
 }
 
