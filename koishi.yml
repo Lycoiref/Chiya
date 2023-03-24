@@ -58,7 +58,7 @@ plugins:
   ~logger:8p7qia: {}
   test:yma65s: null
   invite-manager:w11nuk: null
-  ~invite-manager:z77zmb: {}
+  weather-query:fq3uwa: {}
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1
