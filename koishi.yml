@@ -33,7 +33,7 @@ plugins:
     assets-local: {}
   group:adapter:
     adapter-onebot:
-      selfId: '1453276792'
+      selfId: '898813707'
     ~adapter-discord: {}
     ~adapter-telegram: {}
     ~adapter-kook: {}

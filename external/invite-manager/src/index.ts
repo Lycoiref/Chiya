@@ -11,14 +11,14 @@ export function apply(ctx: Context) {
         status: 0,
         messageId: null
     }
+    let hava_group_request = {
+        status: 0,
+        messageId: null
+    }
     // write your plugin here
     // 入群欢迎
-    console.log(ctx.bots)
     let bot = ctx.bots[1]
     let SUPER: string = '3514392356'
-    let super_session = new Session(ctx.bots[1])
-    super_session.userId = SUPER
-    let shenqi: string = ''
     ctx.on('guild-member-added', (session) => {
         console.log('1111')
         session.send('欢迎' + h('at', { id: session.userId }) + '入群' + '\n' + h.image('http://5b0988e595225.cdn.sohucs.com/images/20180904/11eb6dfe54e5402c85f9ba806b63ac76.png'))
@@ -53,6 +53,38 @@ export function apply(ctx: Context) {
                 await bot.handleFriendRequest(have_friend_request.messageId, false)
                 have_friend_request.status = 0
                 return '已拒绝好友申请'
+            }
+        }
+    })
+    // 入群申请
+    ctx.on('guild-request', async (session) => {
+        if (hava_group_request.messageId === session.messageId) {
+            hava_group_request.messageId = null
+        } else {
+            let user = await session.bot.getUser(session.userId)
+            let guild = await session.bot.getGuild(session.channelId)
+            let content = '入群请求来自:\nQQ:' + user.username + '\n群号:' + guild.guildName
+            let masterId = SUPER
+            if (masterId != null && masterId != '') {
+                session.bot.sendPrivateMessage(masterId, content);
+                hava_group_request.status = 1
+                hava_group_request.messageId = session.messageId
+                // ctx.emit('ask_if_agree' as any, session)
+            }
+        }
+    })
+    ctx.middleware(async (session, next) => {
+        console.log('111')
+        if (hava_group_request.status == 1) {
+            if (session.content === 'ok') {
+                await bot.handleGuildRequest(hava_group_request.messageId, true)
+                hava_group_request.status = 0
+                return '已同意入群申请'
+            }
+            else if (session.content === 'no') {
+                await bot.handleGuildRequest(hava_group_request.messageId, false)
+                hava_group_request.status = 0
+                return '已拒绝入群申请'
             }
         }
     })
