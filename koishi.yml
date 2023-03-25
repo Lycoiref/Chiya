@@ -64,6 +64,8 @@ plugins:
   test:yma65s: null
   invite-manager:w11nuk: null
   ~invite-manager:z77zmb: {}
+  cron:l9vi94: null
+  sechdule:o1j142: {}
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1
