@@ -37,6 +37,8 @@ plugins:
       selfId: '898813707'
     adapter-onebot:2:
       selfId: '1319380872'
+    adapter-onebot:3:
+      selfId: '1453276792'
     ~adapter-discord: {}
     ~adapter-telegram: {}
     ~adapter-kook: {}
@@ -62,8 +64,6 @@ plugins:
   test:yma65s: null
   invite-manager:w11nuk: null
   ~invite-manager:z77zmb: {}
-  dict:t9n5ij: null
-  chat-history:vlfih9: null
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1

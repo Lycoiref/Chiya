@@ -17,6 +17,7 @@ export function apply(ctx: Context) {
     ctx.using(['console'], (ctx) => {
         ctx.console.addEntry({
             dev: path.resolve(__dirname, '../client/index.ts'),
+            // prod: path.resolve(__dirname, '../client/index.ts'),
             prod: path.resolve(__dirname, '../dist'),
         })
     })

@@ -1,6 +1,6 @@
 {
-  "name": "koishi-plugin-daily-sign",
-  "description": "每日签到插件",
+  "name": "koishi-plugin-sechdule",
+  "description": "这是处理定时任务的插件捏",
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,9 +9,7 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {
-    "build:console": "koishi-console build"
-  },
+  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",

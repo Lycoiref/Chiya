@@ -11,5 +11,5 @@ export function apply(ctx: Context) {
     // ctx.on("message", async (session) => {
     //     console.log('***', session.elements[1].attrs)
     // })
-    ctx.command('识图')
+    // ctx.command('识图')
 }
