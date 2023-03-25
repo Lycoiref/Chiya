@@ -27,15 +27,6 @@
     },
     {
       "path": "./external/daily-sign"
-    },
-    {
-      "path": "./external/code-run"
-    },
-    {
-      "path": "./external/chatgpt"
-    },
-    {
-      "path": "./external/beauty-imgs"
     }
   ]
 }
