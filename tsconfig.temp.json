@@ -2,10 +2,10 @@
   "files": [],
   "references": [
     {
-      "path": "./external/user-authority-operation"
+      "path": "./external/weather-query"
     },
     {
-      "path": "./external/test"
+      "path": "./external/user-authority-operation"
     },
     {
       "path": "./external/search-anime"
@@ -21,6 +21,9 @@
     },
     {
       "path": "./external/gitee-utils"
+    },
+    {
+      "path": "./external/dict"
     },
     {
       "path": "./external/daily-sign"

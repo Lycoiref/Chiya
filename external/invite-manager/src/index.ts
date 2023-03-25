@@ -15,7 +15,7 @@ export function apply(ctx: Context) {
         messageId: null
     }
     let bot = ctx.bots[1]
-    let SUPER: string = '3514392356'
+    let SUPER: string = '2022742378'
     ctx.on('guild-member-added', (session) => {
         session.send('欢迎' + h('at', { id: session.userId }) + '入群' + '\n' + h.image('http://5b0988e595225.cdn.sohucs.com/images/20180904/11eb6dfe54e5402c85f9ba806b63ac76.png'))
     })
@@ -37,12 +37,12 @@ export function apply(ctx: Context) {
     ctx.middleware(async (session, next) => {
         if (have_friend_request.status == 1) {
             if (session.content === '同意') {
-                await bot.handleFriendRequest(have_friend_request.messageId, true)
+                await session.bot.handleFriendRequest(have_friend_request.messageId, true)
                 have_friend_request.status = 0
                 return '已同意好友申请'
             }
             else if (session.content === '拒绝') {
-                await bot.handleFriendRequest(have_friend_request.messageId, false)
+                await session.bot.handleFriendRequest(have_friend_request.messageId, false)
                 have_friend_request.status = 0
                 return '已拒绝好友申请'
             }
