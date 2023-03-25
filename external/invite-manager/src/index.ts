@@ -14,12 +14,7 @@ export function apply(ctx: Context) {
         status: 0,
         messageId: null
     }
-<<<<<<< HEAD
-    let bot = ctx.bots[1]
-    let SUPER: string = '2022742378'
-=======
     let SUPER: string = '3514392356'
->>>>>>> 39d2b1cab6768b03bcfb535c399197573b0d39bf
     ctx.on('guild-member-added', (session) => {
         session.send('欢迎' + h('at', { id: session.userId }) + '入群' + '\n' + h.image('http://5b0988e595225.cdn.sohucs.com/images/20180904/11eb6dfe54e5402c85f9ba806b63ac76.png'))
     })
@@ -87,6 +82,5 @@ export function apply(ctx: Context) {
         } else {
             return next()
         }
-    }
-    )
+    }, true)
 }

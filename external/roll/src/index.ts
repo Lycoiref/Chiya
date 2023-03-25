@@ -19,8 +19,9 @@ export function apply(ctx: Context) {
     // write your plugin here
     ctx.command('roll <people:string> [...rest]')
         .action(async (_, people, ...rest) => {
+            console.log('1111111')
             if (!people) {
-                return '请输入要rroll的东西啊'
+                return '请输入要roll的东西啊'
             }
             let rollPeople = [people, ...rest]
             let selectPeople = myrandom(rollPeople)
@@ -35,4 +36,7 @@ export function apply(ctx: Context) {
             })
             await _.session.send(msg)
         })
+    // ctx.on('message', (session) => {
+    //     console.log(11)
+    // })
 }

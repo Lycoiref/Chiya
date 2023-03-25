@@ -1,5 +1,6 @@
+// import { Session } from 'inspector'
 import { Context, Schema, h } from 'koishi'
-import 'koishi-plugin-cron'
+import cron from 'koishi-plugin-cron'
 export const name = 'sechdule'
 export interface Config { }
 
@@ -52,5 +53,6 @@ export function apply(ctx: Context) {
                 console.log('explosion!')
             }
         }
+        return
     })
 }
