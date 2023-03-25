@@ -2,6 +2,12 @@
   "files": [],
   "references": [
     {
+      "path": "./external/weather-query"
+    },
+    {
+      "path": "./external/user-authority-operation"
+    },
+    {
       "path": "./external/test"
     },
     {

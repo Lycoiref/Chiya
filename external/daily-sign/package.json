@@ -9,7 +9,9 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:console": "koishi-console build"
+  },
   "keywords": [
     "chatbot",
     "koishi",
