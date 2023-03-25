@@ -2,46 +2,7 @@
   "files": [],
   "references": [
     {
-      "path": "./external/weather-query"
-    },
-    {
-      "path": "./external/user-authority-operation"
-    },
-    {
-      "path": "./external/sechdule"
-    },
-    {
-      "path": "./external/search-anime"
-    },
-    {
-      "path": "./external/roll"
-    },
-    {
-      "path": "./external/recognizetion-pic"
-    },
-    {
-      "path": "./external/invite-manager"
-    },
-    {
-      "path": "./external/help1"
-    },
-    {
-      "path": "./external/gitee-utils"
-    },
-    {
       "path": "./external/daily-sign"
-    },
-    {
-      "path": "./external/code-run"
-    },
-    {
-      "path": "./external/chatgpt"
-    },
-    {
-      "path": "./external/chat-history"
-    },
-    {
-      "path": "./external/beauty-imgs"
     }
   ]
 }
