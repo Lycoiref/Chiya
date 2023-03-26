@@ -64,7 +64,6 @@ function ToData(xml, max): Array<object> {
             }
             arr.push(obj2)
         }
-    }
-    )
+    })
     return arr
 }

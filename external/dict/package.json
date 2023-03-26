@@ -1,6 +1,6 @@
 {
-  "name": "koishi-plugin-daily-sign",
-  "description": "每日签到插件",
+  "name": "koishi-plugin-dict",
+  "description": "字典",
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,9 +9,7 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {
-    "build:console": "koishi-console build"
-  },
+  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",

@@ -28,6 +28,7 @@ model ban_users {
   ban_time  BigInt?
   duration  BigInt?
   group_id  BigInt  @default(0)
+
   @@id([user_qq, group_id])
 }
 
@@ -76,7 +77,6 @@ model chat_history {
   user_qq     BigInt
   group_id    BigInt?
   text        String?
-  plain_text  String?
   create_time DateTime @db.Timestamptz(6)
 }
 
@@ -303,14 +303,15 @@ model sign_group_users {
   @@unique([user_qq, group_id], map: "sign_group_users_idx1")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+/// search_type 代指： 
+/// 0 --- 关闭词条
+/// 1 --- 开启词条且为局部开启
+/// 2 --- 开启词条且为全局开启
 model word_bank {
-  user_qq     BigInt
   group_id    Int?
   search_type Int
   problem     String   @db.VarChar
   answer      String   @db.VarChar
-  format      String?  @db.VarChar
   create_time DateTime @db.Timestamp(6)
   update_time DateTime @db.Timestamp(6)
   id          Int      @id @default(autoincrement())
