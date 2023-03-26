@@ -2,7 +2,7 @@
   "files": [],
   "references": [
     {
-      "path": "./external/sechdule"
+      "path": "./external/pixiv-rank-search"
     }
   ]
 }
