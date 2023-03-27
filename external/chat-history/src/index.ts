@@ -12,15 +12,10 @@ export function apply(ctx: Context) {
     if (session.subtype === 'group') {
       await history.saveChatHistory(session.guild, parseInt(session.userId), session.content)
         .catch((err)=>console.log(err))
-    } else{
+    } else {
       await history.saveChatHistory(null, parseInt(session.userId), session.content)
       .catch((err)=>console.log(err))
     }
-    if(session.userId === "1163216250"){
-      session.send("哦！是乐哥！")
-      session.send("简家乐太强了！")
-    }
     return next()
-
   },true)
 }
