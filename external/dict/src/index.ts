@@ -83,5 +83,4 @@ export function apply(ctx: Context) {
                 return "词条删除成功"
             }
         })
->>>>>>> 25f7d3405566693d8909d7e7de17192a9fd3d457
 }
