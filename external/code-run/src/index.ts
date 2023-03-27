@@ -36,6 +36,7 @@ export interface Config {
 }
 
 export function apply(ctx: Context,config:Config) {
+  
   const http = ctx.http.extend({
     endpoint: GLOT_URL,
     headers: {
@@ -49,7 +50,7 @@ export function apply(ctx: Context,config:Config) {
     .option('stdin', '-s <stdin:string>')
     .example("code console.log('Hello World!')")
     .action(async ({ options }, code) => {
-      // console.log('*****',config.apiToken)
+      console.log('*****',config.apiToken)
       const languageName = options.language ?? config.defaultLanguage
       const language = LANGUAGES.find(n => n[0] === languageName)
       console.log(language)

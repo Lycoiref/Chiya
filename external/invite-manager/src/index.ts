@@ -92,6 +92,5 @@ export function apply(ctx: Context) {
         } else {
             return next()
         }
-    }
-    )
+    }, true)
 }
