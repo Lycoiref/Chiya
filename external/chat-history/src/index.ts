@@ -1,5 +1,6 @@
-import { Context, Schema } from 'koishi'
-import history from './chat_history_io'
+import { Context, Schema, User } from 'koishi'
+import { } from '@koishijs/plugin-adapter-onebot'
+import database from '../../../public/database_handle'
 
 export const name = 'chat-history'
 
@@ -9,12 +10,20 @@ export const Config: Schema<Config> = Schema.object({})
 
 export function apply(ctx: Context) {
   ctx.middleware(async (session, next) => {
+
+
     if (session.subtype === 'group') {
-      await history.saveChatHistory(session.guild, parseInt(session.userId), session.content)
+      await database.saveChatHistory(session.guild, parseInt(session.userId), session.content)
         .catch((err)=>console.log(err))
     } else {
-      await history.saveChatHistory(null, parseInt(session.userId), session.content)
+      await database.saveChatHistory(null, parseInt(session.userId), session.content)
       .catch((err)=>console.log(err))
+    }
+
+
+    if(session.subtype === 'group' && session.guildId === '485533566'){
+      //测试
+      console.log(session)
     }
     return next()
   },true)

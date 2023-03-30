@@ -10,7 +10,7 @@ plugins:
     ~inspect: {}
     locales: {}
     rate-limit: {}
-    ~chat-history:hu3x57: {}
+    chat-history:hu3x57: null
   group:console:
     analytics: {}
     console:
@@ -34,9 +34,12 @@ plugins:
     ~database-mongo: {}
     assets-local: {}
   group:adapter:
-    adapter-onebot:
+    adapter-onebot:1:
       selfId: '1453276792'
-    ~adapter-discord: {}
+    adapter-onebot:2:
+      selfId: '1319380872'
+    ~adapter-discord:
+      intents: 3276799
     ~adapter-telegram: {}
     ~adapter-kook: {}
     ~adapter-feishu: {}
@@ -46,7 +49,7 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:
       root: .
-    user-authority-operation:fkifa2: null
+  user-authority-operation:fkifa2: null
   daily-sign:9ca8pn: null
   help:zx40fk: {}
   ~daily-sign:3ud5i7: {}
@@ -60,14 +63,13 @@ plugins:
   ~logger:8p7qia: {}
   test:yma65s: null
   invite-manager:w11nuk: null
-  ~invite-manager:z77zmb: {}
-  pixiv-rank-search:h7msoe: null
   dict:ycfiaf: null
   roll:fydtjz: null
   weather-query:pmer13: null
   chat-history:7hh5oi:
     $filter: {}
   ~admin:3q2rti: {}
+  pixiv-rank-search:8vgqxw: null
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1

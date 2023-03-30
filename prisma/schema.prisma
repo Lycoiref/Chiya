@@ -150,7 +150,7 @@ model group_info_users {
   group_id       BigInt
   user_join_time DateTime @db.Timestamp(6)
   nickname       String?  @db.VarChar
-  uid            BigInt?
+  user_role      String?
 
   @@unique([user_qq, group_id], map: "info_group_users_idx1")
 }
