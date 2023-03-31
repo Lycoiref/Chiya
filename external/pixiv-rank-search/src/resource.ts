@@ -19,12 +19,12 @@ export async function search_pixpv_urls(keyword: string, page: number, r18: numb
 async function parser_data(url: string, params: Object, r18: number) {
     try {
 
-        console.log("get前 " +url, params)
+        console.log("get前 " + url, params)
         let data = await axion.get(url, {
             headers: headers,
             params: params
         })
-        console.log("get后 "+data.data)
+        console.log("get后 " + data.data)
         let imgsarr = data.data.illusts
         let urls = []
         if (imgsarr) {
@@ -50,7 +50,6 @@ async function parser_data(url: string, params: Object, r18: number) {
             return urls
         } else {
             return '没有找到此类型图片'
-            // console.log('奇')
         }
     } catch (e) {
         return e
