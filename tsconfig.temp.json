@@ -32,6 +32,9 @@
       "path": "./external/gitee-utils"
     },
     {
+      "path": "./external/getsmt"
+    },
+    {
       "path": "./external/dict"
     },
     {

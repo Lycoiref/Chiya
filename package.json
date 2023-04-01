@@ -55,6 +55,7 @@
     "yml-register": "^1.1.0"
   },
   "dependencies": {
+    "@genshin-kit/core": "^2.6.2",
     "@koishijs/plugin-adapter-discord": "^3.5.7",
     "@koishijs/plugin-adapter-feishu": "^1.2.3",
     "@koishijs/plugin-adapter-kook": "^3.6.2",

@@ -67,6 +67,10 @@ export function apply(ctx: Context) {
             session.send(session.username +" 被"+ h('at', { id: session.operatorId }) +"送走了")
         }
     })
+    //检测用户身份变动并同步数据库
+    ctx.on("guild-member/role",async (session) => {
+        console.log(session)
+    })
     // 加入群组验证
     ctx.on('guild-added', async (session) => {
         //从数据库获取群信息

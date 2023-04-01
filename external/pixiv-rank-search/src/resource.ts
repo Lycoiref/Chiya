@@ -1,4 +1,8 @@
 import axion from 'axios'
+import SocksProxyAgent from 'socks-proxy-agent'
+
+// 定义请求头
+const httpsAgent = new SocksProxyAgent.SocksProxyAgent('socks://127.0.0.1:7890')
 
 const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
@@ -13,18 +17,21 @@ export async function search_pixpv_urls(keyword: string, page: number, r18: numb
         "r18": r18
     }
     let search_url = 'https://api.obfs.dev/api/pixiv/search'
-    return await parser_data(search_url, params, r18)
+    // console.log("1")
+    let result = await parser_data(search_url, params, r18)
+    // console.log("2")
+    return result
 }
 
 async function parser_data(url: string, params: Object, r18: number) {
     try {
-
-        console.log("get前 " +url, params)
         let data = await axion.get(url, {
             headers: headers,
-            params: params
+            params: params,
+            httpsAgent: httpsAgent
         })
-        console.log("get后 "+data.data)
+        // console.log(data)
+        // console.log("get后 "+data.data)
         let imgsarr = data.data.illusts
         let urls = []
         if (imgsarr) {

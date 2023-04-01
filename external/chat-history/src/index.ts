@@ -20,11 +20,6 @@ export function apply(ctx: Context) {
       .catch((err)=>console.log(err))
     }
 
-
-    if(session.subtype === 'group' && session.guildId === '485533566'){
-      //测试
-      console.log(session)
-    }
     return next()
   },true)
 }

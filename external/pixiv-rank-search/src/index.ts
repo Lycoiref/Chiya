@@ -18,10 +18,10 @@ export function apply(ctx: Context) {
                 return "大咩大咩，大咩哟~"
             }   
             let data = await search_pixpv_urls(keyword, page, 1)
-            console.log(data)
-            // let selectimg = myrandom(data)
+            // console.log(data)
+            let selectimg = myrandom(data)
             // return `id:${selectimg.id}\n标题:${selectimg.title}\n`
-            // _.session.send(`id:${selectimg.id}\n标题:${selectimg.title}\n` + h('image', { url: `${selectimg.urls}` }))
+            _.session.send(`id:${selectimg.id}\n标题:${selectimg.title}\n` + h('image', { url: `${selectimg.urls}` }))
         })
     // ctx.on('message', () => {
     //     console.log('wwwww')
