@@ -57,7 +57,6 @@ async function parser_data(url: string, params: Object, r18: number) {
             return urls
         } else {
             return '没有找到此类型图片'
-            // console.log('奇')
         }
     } catch (e) {
         return e

@@ -66,7 +66,7 @@ plugins:
   dict:ycfiaf: null
   roll:fydtjz: null
   weather-query:pmer13: null
-  chat-history:7hh5oi:
+  ~chat-history:7hh5oi:
     $filter: {}
   ~admin:3q2rti: {}
   pixiv-rank-search:8vgqxw: null
