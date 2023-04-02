@@ -70,6 +70,8 @@ plugins:
     $filter: {}
   ~admin:3q2rti: {}
   pixiv-rank-search:8vgqxw: null
+  sechdule:y0odvd: null
+  cron:a9u7kz: null
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1
