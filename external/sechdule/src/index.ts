@@ -1,7 +1,7 @@
 import database from '../../../public/database_handle'
 import { Context, Schema, h } from 'koishi'
-import {} from '@koishijs/plugin-adapter-onebot'
-import {} from 'koishi-plugin-cron'
+import { } from '@koishijs/plugin-adapter-onebot'
+import cron from 'koishi-plugin-cron'
 
 
 export const name = 'sechdule'
@@ -23,14 +23,14 @@ let basicTime = {
     day: basic.getDay(),
 }
 let nowTime = {
-    year:0,
-    month:0,
-    date:0,
-    hour:0,
-    minute:0,
-    second:0,
-    week:0,
-    day:0,
+    year: 0,
+    month: 0,
+    date: 0,
+    hour: 0,
+    minute: 0,
+    second: 0,
+    week: 0,
+    day: 0,
 }
 export function apply(ctx: Context) {
     // 每天0点执行 发晚安
@@ -46,14 +46,14 @@ export function apply(ctx: Context) {
         }
         let timer = new Date()
         nowTime = {
-            year:timer.getFullYear(),
-            month:timer.getMonth() + 1,
-            date:timer.getDate(),
-            hour:timer.getHours(),
-            minute:timer.getMinutes(),
-            second:timer.getSeconds(),
-            week:Math.floor((timer.getTime()-basic.getTime())/(1000*60*60*24*7))+basicTime.week,
-            day:timer.getDay(),
+            year: timer.getFullYear(),
+            month: timer.getMonth() + 1,
+            date: timer.getDate(),
+            hour: timer.getHours(),
+            minute: timer.getMinutes(),
+            second: timer.getSeconds(),
+            week: Math.floor((timer.getTime() - basic.getTime()) / (1000 * 60 * 60 * 24 * 7)) + basicTime.week,
+            day: timer.getDay(),
         }
     })
 
@@ -61,11 +61,11 @@ export function apply(ctx: Context) {
     // 定时操作
     ctx.middleware(async (session, next) => {
         //实时获取服务器时间
-        
-        if(session.subtype === 'group'){
 
-           console.log(ctx.bots[2])
-           
+        if (session.subtype === 'group') {
+
+            console.log(ctx.bots[2])
+
         }
         return next()
     })
