@@ -13,8 +13,14 @@ export function apply(ctx: Context) {
       // 默认不开启上下文模式,不开启人格设定
       let message = [{ "role": 'system', 'content': 'you are helpful useful a AI' }]
       let user = { "role": 'user', 'content': query }
-      let result = await askChatGPT(message.push(user))
-      console.log(message)
-      return result
+      message.push(user)
+      try {
+        let result = await askChatGPT(message)
+        console.log(message)
+        return result
+      } catch (e) {
+        console.log('error', e)
+        return e
+      }
     })
 }

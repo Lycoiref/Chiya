@@ -10,7 +10,7 @@ plugins:
     ~inspect: {}
     locales: {}
     rate-limit: {}
-    chat-history:hu3x57: null
+    ~chat-history:hu3x57: null
   group:console:
     analytics: {}
     console:

@@ -1,43 +1,27 @@
-const { Configuration, OpenAIApi } = require('openai')
-
-const model = 'gpt-3.5-turbo';
-
-function getOpenAI() {
-  const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
-  return openai;
-}
-
-
-function getCompletion(messages) {
-  return {
-    model: model,
-    messages: messages,
-    temperature: 0.5,
-    max_tokens: 1024,
-    presence_penalty: 0.6,
-    frequency_penalty: 0.5,
-  }
-}
-
+import axios from "axios";
 export async function askChatGPT(requestMessage) {
-  const completion = await getOpenAI().createChatCompletion(
-    getCompletion(requestMessage),
-    // {...getOptions()}
-    {
-      "headers": {
-        'Content-Type': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Authorization': 'Bearer ' + process.env.OPENAI_API_KEY // 这边填写你的API Key
-      },
-      "proxy": {
-        "host": '127.0.0.1',
-        "port": 7890,
-        "protocol": 'http'
-      }
+  try {
+    let params = {
+      model: "gpt-3.5-turbo",
+      max_tokens: 2048,
+      temperature: 0.5,
+      top_p: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      messages: requestMessage,
     }
-  );
-  return completion.data.choices[0].message.content;
+    let response = await axios({
+      url: 'https://api.openai-proxy.com/v1/chat/completions',
+      method: 'post',
+      headers: {
+        Authorization: 'Bearer ' + process.env.OPENAI_API_KEY,
+        'Content-Type': 'application/json',
+      },
+      params: params,
+    })
+    return response.data.choices[0].message.content
+  } catch (e) {
+    console.log('error', e)
+    return e
+  }
 }
