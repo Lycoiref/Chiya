@@ -1,4 +1,3 @@
-import axios from "axios";
 export async function askChatGPT(requestMessage) {
   try {
     let params = {
@@ -10,16 +9,21 @@ export async function askChatGPT(requestMessage) {
       frequency_penalty: 0,
       messages: requestMessage,
     }
-    let response = await axios({
-      url: 'https://api.openai-proxy.com/v1/chat/completions',
-      method: 'post',
+    let response: any = await fetch(
+      'https://api.openai-proxy.com/v1/chat/completions', {
+      method: "POST",
+      body: JSON.stringify({
+        ...params
+      }),
       headers: {
         Authorization: 'Bearer ' + process.env.OPENAI_API_KEY,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-      params: params,
     })
-    return response.data.choices[0].message.content
+    // console.log(response.json())
+    response = await response.json()
+    return response.choices[0].message.content
   } catch (e) {
     console.log('error', e)
     return e
