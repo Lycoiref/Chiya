@@ -10,7 +10,7 @@ plugins:
     ~inspect: {}
     locales: {}
     rate-limit: {}
-    chat-history:hu3x57: null
+    ~chat-history:hu3x57: null
   group:console:
     analytics: {}
     console:
@@ -66,10 +66,11 @@ plugins:
   dict:ycfiaf: null
   roll:fydtjz: null
   weather-query:pmer13: null
-  chat-history:7hh5oi:
-    $filter: {}
   ~admin:3q2rti: {}
   pixiv-rank-search:8vgqxw: null
+  sechdule:y0odvd: null
+  cron:a9u7kz: null
+  openai:m3otxh: {}
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1

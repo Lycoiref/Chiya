@@ -1,4 +1,6 @@
-import { Context, Schema } from 'koishi'
+import { Context, Schema, h } from 'koishi'
+import { CQCode } from '@koishijs/plugin-adapter-onebot'
+// import { type } from 'os'
 // import { searchAnime } from './source'
 // import axios from 'axios'
 const xml2js = require('xml2js')
@@ -13,9 +15,21 @@ export function apply(ctx: Context) {
     ctx.command('search-anime <keyword:string>')
         .usage('搜索动漫')
         .action(async (_, keyword): Promise<any> => {
-            const res = await searchAnime(ctx, keyword)
-            // console.log('******', res)
-            return res
+            console.log(111222)
+            let res = await searchAnime(ctx, keyword)
+            let resArr: any[] = []
+            console.log(res)
+            for (let i = 0; i < res.length; i++) {
+                resArr.push(<message><author user-id="3514392356" nickname="bot" avatar="url" />{res[i]}</message>)
+            }
+            console.log(resArr)
+            if (_.session.userId) {
+                _.session.send(<> <message forward>
+                    {resArr}
+                </message></>)
+            } else if (_.session.guildId) {
+                _.session.onebot.sendGroupForwardMsg(_.session.guildId, [])
+            }
         })
 }
 
@@ -26,7 +40,7 @@ interface objdata {
 }
 
 async function searchAnime(ctx: Context, keyword: string) {
-    let response: string = ''
+    let response: any[] = []
     let url: string = `https://share.dmhy.org/topics/rss/rss.xml?keyword=${keyword}`
     try {
         // console.log('url',url)
@@ -41,7 +55,8 @@ async function searchAnime(ctx: Context, keyword: string) {
         // console.log(anime_arr)
         for (let item of anime_arr) {
             // console.log(item)
-            response += item.title + '\n' + item.dataurl + '\n' + '\n' + '\n'
+            response.push(item.title + '\n' + item.dataurl)
+
         }
         return response
     } catch (e) {

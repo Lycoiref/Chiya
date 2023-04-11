@@ -123,6 +123,11 @@ const prisma = new PrismaClient()
     })
     return result
   }
+  async function getGroupList() {
+    //数据库操作
+    let result = await prisma.group_info.findMany()
+    return result
+  }
 
 //有关用户的数据库操作
   //添加用户
@@ -207,6 +212,7 @@ module.exports = {
 //群组
   getGroup,
   setGroup,
+  getGroupList,
 //词条
   setDict,
   setGlobleDict,
