@@ -32,7 +32,7 @@
     "bump": "yakumo version",
     "dep": "yakumo upgrade",
     "pub": "yakumo publish",
-    "dev": "dotenv -e ./.env.local -- cross-env NODE_ENV=development koishi start -r esbuild-register -r yml-register",
+    "dev": "cross-env NODE_ENV=development koishi start -r esbuild-register -r yml-register",
     "start": "koishi start"
   },
   "devDependencies": {
