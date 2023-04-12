@@ -1,0 +1,328 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model bag_users {
+  id               Int    @id @default(autoincrement())
+  user_qq          BigInt
+  group_id         BigInt
+  gold             Int?
+  props            String
+  spend_total_gold Int?
+  get_total_gold   Int?
+  get_today_gold   Int?
+  spend_today_gold Int?
+  property         Json   @db.Json
+
+  @@unique([user_qq, group_id], map: "bag_group_users_idx1")
+}
+
+model ban_users {
+  user_qq   BigInt  @unique(map: "ban_group_users_idx1") @default(autoincrement())
+  ban_level Int
+  ban_time  BigInt?
+  duration  BigInt?
+  group_id  BigInt  @default(0)
+
+  @@id([user_qq, group_id])
+}
+
+model bilibili_sub {
+  id                     Int       @id @default(autoincrement())
+  sub_id                 Int
+  sub_type               String    @db.VarChar
+  sub_users              String    @db.VarChar
+  live_short_id          Int?
+  live_status            Int?
+  uid                    BigInt?
+  uname                  String?   @db.VarChar
+  latest_video_created   BigInt?
+  dynamic_upload_time    BigInt?
+  season_name            String?   @db.VarChar
+  season_id              Int?
+  season_current_episode String?   @db.VarChar
+  season_update_time     DateTime? @db.Timestamp(6)
+
+  @@unique([sub_id, sub_type], map: "bilibili_sub_idx1")
+}
+
+model black_word {
+  id           Int      @default(autoincrement())
+  user_qq      BigInt
+  group_id     BigInt?
+  plant_text   String?  @db.VarChar
+  black_word   String?  @db.VarChar
+  punish       String?  @db.VarChar
+  punish_level Int?
+  create_time  DateTime @db.Timestamptz(6)
+
+  @@id([id, user_qq])
+}
+
+model buff_prices {
+  id          Int      @id @default(autoincrement())
+  case_id     Int
+  skin_name   String   @unique(map: "buff_price_idx1") @db.VarChar
+  skin_price  Float
+  update_date DateTime @db.Timestamp(6)
+}
+
+model chat_history {
+  id          Int      @id @default(autoincrement())
+  user_qq     BigInt
+  group_id    BigInt?
+  text        String?
+  create_time DateTime @db.Timestamptz(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model demo {
+  demo Int?
+
+  @@ignore
+}
+
+model friend_users {
+  id        Int     @id @default(autoincrement())
+  user_id   BigInt  @unique(map: "friend_users_idx1")
+  user_name String  @db.VarChar
+  nickname  String? @db.VarChar
+}
+
+model genshin {
+  id                  Int       @id @default(autoincrement())
+  user_qq             BigInt
+  uid                 BigInt?
+  mys_id              BigInt?
+  cookie              String?   @db.VarChar
+  today_query_uid     String?   @db.VarChar
+  auto_sign           Boolean?
+  auto_sign_time      DateTime? @db.Timestamptz(6)
+  resin_remind        Boolean?
+  resin_recovery_time DateTime? @db.Timestamptz(6)
+  bind_group          BigInt?
+  login_ticket        String?   @default("") @db.VarChar(255)
+  stuid               String?   @default("") @db.VarChar(255)
+  stoken              String?   @default("") @db.VarChar(255)
+
+  @@unique([user_qq, uid], map: "genshin_uid_idx1")
+}
+
+model github_sub {
+  id          Int       @id @default(autoincrement())
+  sub_type    String    @db.VarChar
+  sub_users   String    @db.VarChar
+  sub_url     String?   @db.VarChar
+  update_time DateTime? @db.Timestamp(6)
+  etag        String?   @db.VarChar
+}
+
+model goods_info {
+  id                   Int      @id @default(autoincrement())
+  goods_name           String   @unique(map: "goods_group_users_idx1")
+  goods_price          Int
+  goods_description    String
+  goods_discount       Decimal? @db.Decimal
+  goods_limit_time     BigInt?
+  daily_limit          Int?     @default(0)
+  daily_purchase_limit Json?    @default("{}") @db.Json
+  is_passsive          Boolean  @default(false)
+  icon                 String?  @db.VarChar
+}
+
+model group_info {
+  group_id         BigInt @id @unique(map: "group_info_idx1") @default(autoincrement())
+  group_name       String @db.VarChar
+  max_member_count Int
+  member_count     Int
+  group_flag       Int
+}
+
+model group_info_users {
+  id             Int      @id @default(autoincrement())
+  user_qq        BigInt
+  user_name      String   @db.VarChar
+  group_id       BigInt
+  user_join_time DateTime @db.Timestamp(6)
+  nickname       String?  @db.VarChar
+  user_role      String?
+
+  @@unique([user_qq, group_id], map: "info_group_users_idx1")
+}
+
+model hdu_auto_sign_user {
+  id                  Int       @id @default(autoincrement())
+  user_qq             BigInt
+  hdu_account         String?   @db.VarChar(10)
+  hdu_password        String?   @db.VarChar
+  auto_sign           Boolean?
+  hours               Int?
+  minutes             Int?
+  sessionid           String?
+  session_update_time DateTime? @db.Timestamptz(6)
+
+  @@unique([user_qq, hdu_account], map: "hdu_punch_idx1")
+}
+
+model mihoyobbs {
+  id           Int     @id @default(autoincrement())
+  user_qq      BigInt
+  uid          BigInt
+  cookie       String? @db.VarChar
+  login_ticket String? @db.VarChar
+  stuid        String? @db.VarChar
+  stoken       String? @db.VarChar
+
+  @@unique([user_qq, uid], map: "mihoyobbs_uid_idx1")
+}
+
+model omega_pixiv_illusts {
+  id         Int       @id @default(autoincrement())
+  pid        BigInt
+  uid        BigInt
+  title      String    @db.VarChar
+  uname      String    @db.VarChar
+  nsfw_tag   Int
+  width      Int
+  height     Int
+  tags       String    @db.VarChar
+  url        String    @db.VarChar
+  created_at DateTime? @db.Timestamptz(6)
+  updated_at DateTime? @db.Timestamptz(6)
+
+  @@unique([pid, url], map: "omega_pixiv_illusts_idx1")
+}
+
+model open_cases_users {
+  id                   Int      @id @default(autoincrement())
+  user_qq              BigInt
+  group_id             BigInt
+  total_count          Int
+  blue_count           Int
+  blue_st_count        Int
+  purple_count         Int
+  purple_st_count      Int
+  pink_count           Int
+  pink_st_count        Int
+  red_count            Int
+  red_st_count         Int
+  knife_count          Int
+  knife_st_count       Int
+  spend_money          Int
+  make_money           Float
+  today_open_total     Int
+  open_cases_time_last DateTime @db.Timestamptz(6)
+  knifes_name          String   @db.VarChar
+
+  @@unique([user_qq, group_id], map: "open_cases_group_users_idx1")
+}
+
+model pixiv {
+  id        Int     @id @default(autoincrement())
+  pid       BigInt
+  title     String  @db.VarChar
+  width     Int
+  height    Int
+  view      Int
+  bookmarks Int
+  img_url   String  @db.VarChar
+  img_p     String  @db.VarChar
+  uid       BigInt
+  author    String  @db.VarChar
+  is_r18    Boolean
+  tags      String  @db.VarChar
+
+  @@unique([pid, img_url], map: "pixiv_idx1")
+}
+
+model pixiv_keyword_users {
+  id       Int      @id @default(autoincrement())
+  user_qq  BigInt
+  group_id BigInt
+  keyword  String   @unique(map: "pixiv_keyword_users_idx1") @db.VarChar
+  is_pass  Boolean?
+}
+
+model redbag_users {
+  id                Int    @id @default(autoincrement())
+  user_qq           BigInt
+  group_id          BigInt
+  send_redbag_count Int?
+  get_redbag_count  Int?
+  spend_gold        Int?
+  get_gold          Int?
+
+  @@unique([user_qq, group_id], map: "redbag_group_users_idx1")
+}
+
+model russian_users {
+  id                 Int    @id @default(autoincrement())
+  user_qq            BigInt
+  group_id           BigInt
+  win_count          Int?
+  fail_count         Int?
+  make_money         Int?
+  lose_money         Int?
+  winning_streak     Int?
+  losing_streak      Int?
+  max_winning_streak Int?
+  max_losing_streak  Int?
+
+  @@unique([user_qq, group_id], map: "russian_group_users_idx1")
+}
+
+model setu {
+  id       Int     @id @default(autoincrement())
+  local_id Int
+  title    String  @db.VarChar
+  author   String  @db.VarChar
+  pid      BigInt
+  img_hash String  @db.VarChar
+  img_url  String  @db.VarChar
+  is_r18   Boolean
+  tags     String? @db.VarChar
+
+  @@unique([pid, img_url], map: "setu_pid_img_url_idx1")
+}
+
+model sign_group_users {
+  id                  Int      @id @default(autoincrement())
+  user_qq             String   @db.VarChar
+  group_id            String   @db.VarChar
+  checkin_count       Int
+  checkin_time_last   DateTime @db.Timestamptz(6)
+  impression          Decimal  @db.Decimal
+  add_probability     Decimal  @db.Decimal
+  specify_probability Decimal  @db.Decimal
+
+  @@unique([user_qq, group_id], map: "sign_group_users_idx1")
+}
+
+/// search_type 代指： 
+/// 0 --- 关闭词条
+/// 1 --- 开启词条且为局部开启
+/// 2 --- 开启词条且为全局开启
+model word_bank {
+  group_id    Int?
+  search_type Int
+  problem     String   @db.VarChar
+  answer      String   @db.VarChar
+  create_time DateTime @db.Timestamp(6)
+  update_time DateTime @db.Timestamp(6)
+  id          Int      @id @default(autoincrement())
+}
+
+model authority_users {
+  id             Int    @id(map: "level_users_pkey") @default(autoincrement())
+  user_qq        BigInt
+  group_id       BigInt
+  user_authority BigInt
+  group_flag     Int
+
+  @@unique([user_qq, group_id], map: "level_group_users_idx1")
+}
