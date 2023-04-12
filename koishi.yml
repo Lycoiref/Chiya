@@ -35,8 +35,8 @@ plugins:
     assets-local: {}
   group:adapter:
     adapter-onebot:1:
-      selfId: '1453276792'
-    adapter-onebot:2:
+      selfId: '898813707'
+    ~adapter-onebot:2:
       selfId: '1319380872'
     ~adapter-discord:
       intents: 3276799
