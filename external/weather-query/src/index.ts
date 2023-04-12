@@ -32,8 +32,6 @@ export function apply(ctx: Context) {
                 }
                 return dayscontent
             }
-            // console.log(weather)
-            // return weather
         })
 }
 

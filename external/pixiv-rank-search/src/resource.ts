@@ -1,8 +1,6 @@
 import axion from 'axios'
-import SocksProxyAgent from 'socks-proxy-agent'
 
 // 定义请求头
-const httpsAgent = new SocksProxyAgent.SocksProxyAgent('socks://127.0.0.1:7890')
 
 const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
@@ -28,7 +26,6 @@ async function parser_data(url: string, params: Object, r18: number) {
         let data = await axion.get(url, {
             headers: headers,
             params: params,
-            httpsAgent: httpsAgent
         })
         // console.log(data)
         // console.log("get后 "+data.data)

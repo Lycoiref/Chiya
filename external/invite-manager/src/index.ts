@@ -26,7 +26,7 @@ export function apply(ctx: Context) {
     //获取super用户
     let SUPER: Array<string> = process.env.masters.split(',')
     //监听加群事件并记录用户信息
-    ctx.on('guild-member-added',async (session) => {
+    ctx.on('guild-member-added', async (session) => {
         let user = {
             userId: session.userId,
             username: session.username,
@@ -42,55 +42,55 @@ export function apply(ctx: Context) {
             session.guildId,
             Date.now(),
             "member"
-            )
-            .catch((err)=>{
+        )
+            .catch((err) => {
                 console.log(err)
             })
         session.send('欢迎' + h('at', { id: session.userId }) + '入群' + '\n' + h.image('http://5b0988e595225.cdn.sohucs.com/images/20180904/11eb6dfe54e5402c85f9ba806b63ac76.png'))
     })
     //监听退群事件并删除用户信息
-    ctx.on('guild-member-deleted',async (session) => {
+    ctx.on('guild-member-deleted', async (session) => {
         let user = {
             userId: session.userId,
             username: session.username,
         }
         console.log(user)
         //将用户信息从数据库删除
-        let result = await database.deleteUser(session.userId,session.guildId)
-            .catch((err)=>{
+        let result = await database.deleteUser(session.userId, session.guildId)
+            .catch((err) => {
                 console.log(err)
             })
         console.log(session)
-        if(session.userId === session.operatorId){
-            session.send(session.username +" 永远的离开了我们")
+        if (session.userId === session.operatorId) {
+            session.send(session.username + " 永远的离开了我们")
         } else {
-            session.send(session.username +" 被"+ h('at', { id: session.operatorId }) +"送走了")
+            session.send(session.username + " 被" + h('at', { id: session.operatorId }) + "送走了")
         }
     })
     //检测用户身份变动并同步数据库
-    ctx.on("guild-member/role",async (session) => {
+    ctx.on("guild-member/role", async (session) => {
         console.log(session)
     })
     // 加入群组验证
     ctx.on('guild-added', async (session) => {
         //从数据库获取群信息
         let myGroup = await database.getGroup(session.guildId)
-        if(myGroup === null){
+        if (myGroup === null) {
             await session.send("不要随便拉我进群！")
             await session.onebot.setGroupLeave(session.guildId)
         } else {
             await session.send("正在初始化，请稍候")
             let userList = await session.onebot.getGroupMemberList(session.guildId)
             console.log(userList)
-            for(let i in userList){
+            for (let i in userList) {
                 let result = await database.setUser(
                     userList[i].user_id,
                     userList[i].nickname,
                     userList[i].group_id,
-                    userList[i].join_time*1000,
+                    userList[i].join_time * 1000,
                     userList[i].role
-                    )
-                    .catch((err)=>{
+                )
+                    .catch((err) => {
                         console.log(err)
                     })
                 console.log(result)
@@ -118,7 +118,7 @@ export function apply(ctx: Context) {
     //好友操作
     ctx.middleware(async (session, next) => {
         if (have_friend_request.status == 1) {
-            if ( SUPER.includes(session.userId) && session.content === 'y' ) {
+            if (SUPER.includes(session.userId) && session.content === 'y') {
                 await session.bot.handleFriendRequest(have_friend_request.messageId, true)
                 have_friend_request.status = 0
                 return '已同意好友申请'
@@ -158,12 +158,12 @@ export function apply(ctx: Context) {
     //群操作
     ctx.middleware(async (session, next) => {
         if (have_guild_request.status == 1) {
-            if ( SUPER.includes(session.userId) && session.content === 'y') {
+            if (SUPER.includes(session.userId) && session.content === 'y') {
                 //获得群信息
                 let groupInfo = await session.onebot.getGroupInfo(have_guild_request.guildId)
                 console.log(groupInfo)
                 //更新群信息至数据库
-                let result = await database.setGroup(groupInfo.group_id,groupInfo.group_name,groupInfo.max_member_count,groupInfo.member_count)
+                let result = await database.setGroup(groupInfo.group_id, groupInfo.group_name, groupInfo.max_member_count, groupInfo.member_count)
                     .catch((err) => {
                         console.log(err)
                     })
