@@ -17,5 +17,8 @@
   ],
   "peerDependencies": {
     "koishi": "^4.12.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.12.0"
   }
 }
