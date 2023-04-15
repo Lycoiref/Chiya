@@ -10,15 +10,4 @@ export interface Config { }
 export const Config: Schema<Config> = Schema.object({})
 
 export function apply(ctx: Context) {
-    // TODO 记得删除
-    ctx.on('message', async session => {
-        console.log('11111');
-        await new Promise(resolve => setTimeout(() => {
-            console.log('22222');
-            resolve(11)
-        }, 1000))
-        console.log('33333');
-
-
-    })
 }

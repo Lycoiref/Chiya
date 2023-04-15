@@ -72,6 +72,7 @@ plugins:
   cron:a9u7kz: null
   openai:m3otxh: {}
   explosion:udqlk9: {}
+  database-postgres:0xo6uq: {}
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1
