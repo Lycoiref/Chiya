@@ -9,7 +9,6 @@ declare module 'koishi' {
         postgres: PostgresDatabase
     }
 }
-//test
 
 export interface Config { }
 
