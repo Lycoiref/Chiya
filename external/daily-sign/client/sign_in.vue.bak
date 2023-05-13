@@ -1,14 +1,19 @@
 <template>
     <div class="page">
         <div class="sign-card">
-            <div class="background-img">
-                <img :src="signBackground" alt="签到">
-            </div>
             <div class="title">
             </div>
             <div class="content">
-                签到成功
+                大吉
                 <div class="text-content">
+                    <div class="text1">
+                        <div class="little-text">
+                            诸事皆宜
+                        </div>
+                        <div class="little-text">
+                            利东南
+                        </div>
+                    </div>
                     <div class="text2">
                         <div class="little-text horizon-text">
                             好感度 + {{ query.random_num }}
@@ -29,7 +34,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
-import signBackground from './bg2.jpg'
 
 
 let query: any = ref({
@@ -54,32 +58,20 @@ console.log(query)
 }
 
 .sign-card {
-    width: 80vw;
+    width: 30vw;
+    height: 40vw;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
-    object-fit: cover;
-}
-
-.background-img {
-    width: 100%;
-    z-index: -1;
-    display: flex;
-    justify-content: center;
-    object-fit: cover;
-}
-
-.background-img img {
-    width: 100%;
-    object-fit: cover;
+    /* border: 1px solid #484bff; */
+    background-image: url(./bg1.jpg);
+    background-size: 100% 100%;
 }
 
 .content {
-    position: absolute;
     font-size: 6vw;
     font-weight: 700;
-    color: #fff;
+    color: #f00;
 }
 
 .little-text {

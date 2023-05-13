@@ -41,9 +41,9 @@ export function apply(ctx: Context) {
                     // 生成随机数mean表示发散程度，variance表示随机数的波动范围
                     let random_num = postgres.generateRandomNum(200, 2)
                     impression += random_num
-                    session.send(`签到成功，好感度 + ${random_num.toFixed(2)}\n`
-                        + `上次签到时间：${checkin_time_last_str}\n`
-                        + `当前好感度：${impression.toFixed(2)}`)
+                    // session.send(`签到成功，好感度 + ${random_num.toFixed(2)}\n`
+                    //     + `上次签到时间：${checkin_time_last_str}\n`
+                    //     + `当前好感度：${impression.toFixed(2)}`)
                     let sign_image = await postgres.getSignImage(random_num.toFixed(2), checkin_time_last_str, impression.toFixed(2))
                     session.send(h.image(sign_image as Buffer, 'image/png'))
                     await postgres.updateUser(user_qq, group_id, impression, checkin_count, now)
