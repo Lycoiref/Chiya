@@ -30,8 +30,9 @@ export function apply(ctx: Context) {
 export class PostgresDatabase extends Service {
     postgres = this
     str = '1111'
-    constructor(private client: PrismaClient, ctx: Context) {
+    constructor(public client: PrismaClient, ctx: Context) {
         super(ctx, 'postgres')
+        console.log('已注册数据库组件');
     }
 
     async init() {
