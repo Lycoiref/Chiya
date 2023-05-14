@@ -10,6 +10,5 @@
     yarn install
     cd .. && npm install dotenv -g
     cd Koishi_Demo
-    npx prisma generate
     yarn dev
 ```
