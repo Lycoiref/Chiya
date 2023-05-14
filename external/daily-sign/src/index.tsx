@@ -57,8 +57,6 @@ export function apply(ctx: Context) {
             } catch (e) {
                 console.log(e)
                 return '签到失败'
-                // let img_buffer = await getSignImage()
-                // await session.send(h.image(img_buffer as Buffer, 'image/png'))
             }
         } else {
             return next()
