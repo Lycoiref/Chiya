@@ -4,7 +4,7 @@
             <div class="background-img">
                 <img :src="signBackground" alt="签到">
             </div>
-            <div class="title">
+            <div class="title">11
             </div>
             <div class="content">
                 签到成功
@@ -17,7 +17,7 @@
                             上次签到时间：{{ query.checkin_time_last_str }}
                         </div>
                         <div class="little-text horizon-text">
-                            当前好感度：{{ query.impression }}
+                            当前好感度：{{ query.impression }} {{ height }}
                         </div>
                     </div>
                 </div>
@@ -27,10 +27,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
-import signBackground from './bg2.jpg'
+import signBackground2 from './bg2.jpg'
+import signBackground3 from './bg3.jpg'
+import signBackground4 from './bg4.png'
 
+// signBackground中随机选择一个作为背景
+const signBackground = [signBackground2, signBackground3, signBackground4][Math.floor(Math.random() * 3)]
 
 let query: any = ref({
     random_num: 0,
@@ -39,6 +43,17 @@ let query: any = ref({
 })
 query = useRouter().currentRoute.value.query
 console.log(query)
+let height = ref(0)
+
+onMounted(() => {
+    // 获取图片高度
+    const img = document.querySelector('.background-img img')
+    console.log(img);
+    
+    height.value = img.clientHeight
+    console.log(height.value);
+    
+})
 </script>
 
 <style scoped>
@@ -51,23 +66,29 @@ console.log(query)
     display: flex;
     justify-content: center;
     align-items: center;
+    /* scale: 0.3; */
 }
 
 .sign-card {
     width: 80vw;
+    height: 40vw;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     object-fit: cover;
+    overflow: hidden;
+    position: relative;
 }
 
 .background-img {
-    width: 100%;
+    position: absolute;
+    width: 80vw;
     z-index: -1;
     display: flex;
     justify-content: center;
     object-fit: cover;
+    overflow: hidden;
 }
 
 .background-img img {
@@ -75,24 +96,29 @@ console.log(query)
     object-fit: cover;
 }
 
-.content {
-    position: absolute;
-    font-size: 6vw;
-    font-weight: 700;
-    color: #fff;
+.title {
+    width: 100%;
+    flex: 4;
 }
 
-.little-text {
-    font-size: 1vw;
-    color: #484bff;
-    writing-mode: vertical-lr;
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 3vw;
+    flex: 6;
+    font-weight: 700;
+    color: #000;
+    background-color: rgba(243, 243, 243, 0.8);
 }
 
 .text-content {
-    display: flex;
+    width: 100%;
 }
 
-.horizon-text {
-    writing-mode: horizontal-tb;
+.little-text {
+    width: 100%;
+    font-size: 1vw;
 }
 </style>

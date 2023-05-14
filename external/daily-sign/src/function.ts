@@ -15,11 +15,19 @@ class User {
         return random_num
     }
 
-    getSignImage = async (random_num: string, checkin_time_last_str: string, impression: string) => {
+    getSignImage = async (random_num: string, checkin_time_last_str: string, impression: string, user: any) => {
+        // 拼接查询字符串
+        let query = ''
+        for (let key in user) {
+            if (user[key] === null) {
+                user[key] = ''
+            }
+            query += `${key}=${user[key]}&`
+        }
         const browser = await chromium.launch({ headless: true })
         const context = await browser.newContext({ viewport: { width: 2000, height: 1600 } })
         const page = await context.newPage()
-        await page.goto(`http://127.0.0.1:7140/sign?random_num=${random_num}&checkin_time_last_str=${checkin_time_last_str}&impression=${impression}`)
+        await page.goto(`http://127.0.0.1:7140/sign?random_num=${random_num}&checkin_time_last_str=${checkin_time_last_str}&impression=${impression}&${query}`)
         let img = await page.locator('.sign-card').screenshot()
         await browser.close()
         return new Promise((resolve, reject) => {

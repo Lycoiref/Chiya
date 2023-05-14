@@ -43,10 +43,11 @@ export function apply(ctx: Context) {
                     // session.send(`签到成功，好感度 + ${random_num.toFixed(2)}\n`
                     //     + `上次签到时间：${checkin_time_last_str}\n`
                     //     + `当前好感度：${impression.toFixed(2)}`)
-                    let sign_image = await postgres.getSignImage(random_num.toFixed(2), checkin_time_last_str, impression.toFixed(2))
-                    session.send(h.image(sign_image as Buffer, 'image/png'))
+                    let sign_image = await postgres.getSignImage(random_num.toFixed(2), checkin_time_last_str, impression.toFixed(2), user)
+                    await session.send(h.image(sign_image as Buffer, 'image/png'))
                     await postgres.updateUser(user_qq, group_id, impression, checkin_count, now)
                     console.log('返回html');
+                    await session.send('觉得签到太丑？来https://github.com/Lycoiref/Chiya_External提交PR！！')
                 } else {
                     // 新建用户
                     await postgres.createUser(user_qq, group_id)
