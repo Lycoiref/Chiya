@@ -2,6 +2,8 @@ import { chromium } from 'playwright'
 import { Context } from 'koishi'
 import { } from 'koishi-plugin-database-postgres'
 
+
+// TODO: 此处user_qq和group_id需要改为bigint（传入为string，但是数据库中为BIGINT）
 class User {
     prisma: any
     constructor(ctx: Context) {
@@ -30,8 +32,8 @@ class User {
         let user = await this.prisma.sign_group_users.findUnique({
             where: {
                 user_qq_group_id: {
-                    user_qq: user_qq,
-                    group_id: group_id
+                    user_qq: Number(user_qq),
+                    group_id: Number(group_id)
                 }
             }
         })
@@ -52,8 +54,8 @@ class User {
         await this.prisma.sign_group_users.update({
             where: {
                 user_qq_group_id: {
-                    user_qq: user_qq,
-                    group_id: group_id
+                    user_qq: Number(user_qq),
+                    group_id: Number(group_id)
                 }
             },
             data: {
@@ -67,8 +69,8 @@ class User {
     createUser = async (user_qq: string, group_id: string) => {
         await this.prisma.sign_group_users.create({
             data: {
-                user_qq: user_qq,
-                group_id: group_id,
+                user_qq: Number(user_qq),
+                group_id: Number(group_id),
                 impression: 0,
                 checkin_count: 0,
                 checkin_time_last: new Date(),
