@@ -3,7 +3,6 @@ import { Context } from 'koishi'
 import { } from 'koishi-plugin-database-postgres'
 
 
-// TODO: 此处user_qq和group_id需要改为bigint（传入为string，但是数据库中为BIGINT）
 class User {
     prisma: any
     constructor(ctx: Context) {
@@ -18,9 +17,9 @@ class User {
 
     getSignImage = async (random_num: string, checkin_time_last_str: string, impression: string) => {
         const browser = await chromium.launch({ headless: true })
-        const context = await browser.newContext({ viewport: { width: 6400, height: 3600 } })
+        const context = await browser.newContext({ viewport: { width: 2000, height: 1600 } })
         const page = await context.newPage()
-        await page.goto(`http://127.0.0.1:5140/sign?random_num=${random_num}&checkin_time_last_str=${checkin_time_last_str}&impression=${impression}`)
+        await page.goto(`http://127.0.0.1:7140/sign?random_num=${random_num}&checkin_time_last_str=${checkin_time_last_str}&impression=${impression}`)
         let img = await page.locator('.sign-card').screenshot()
         await browser.close()
         return new Promise((resolve, reject) => {
@@ -29,15 +28,19 @@ class User {
     }
 
     getUserInfo = async (user_qq: string, group_id: string) => {
-        let user = await this.prisma.sign_group_users.findUnique({
-            where: {
-                user_qq_group_id: {
-                    user_qq: Number(user_qq),
-                    group_id: Number(group_id)
+        try {
+            let user = await this.prisma.sign_group_users.findUnique({
+                where: {
+                    user_qq_group_id: {
+                        user_qq: user_qq,
+                        group_id: group_id
+                    }
                 }
-            }
-        })
-        return user
+            })
+            return user
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     getLastCheckInTime = (user) => {
@@ -54,8 +57,8 @@ class User {
         await this.prisma.sign_group_users.update({
             where: {
                 user_qq_group_id: {
-                    user_qq: Number(user_qq),
-                    group_id: Number(group_id)
+                    user_qq: user_qq,
+                    group_id: group_id
                 }
             },
             data: {
@@ -69,8 +72,8 @@ class User {
     createUser = async (user_qq: string, group_id: string) => {
         await this.prisma.sign_group_users.create({
             data: {
-                user_qq: Number(user_qq),
-                group_id: Number(group_id),
+                user_qq: user_qq,
+                group_id: group_id,
                 impression: 0,
                 checkin_count: 0,
                 checkin_time_last: new Date(),
