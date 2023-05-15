@@ -1,0 +1,24 @@
+{
+  "name": "koishi-plugin-hdu-utils",
+  "description": "杭电工具",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {},
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.12.1"
+  },
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
