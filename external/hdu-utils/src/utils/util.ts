@@ -102,6 +102,7 @@ export async function getCourseData(token, flag) {
     let firstWeek = new Date(2023, 1, 27)
     // 计算当前是第几周
     let weekNum = Math.ceil((Number(date) - Number(firstWeek)) / 86400000 / 7)
+    let period = weekNum % 2 == 0 ? '双' : '单'
     // 获取今天是星期几
     let week = date.getDay()
     if (flag == 1) {
@@ -116,7 +117,21 @@ export async function getCourseData(token, flag) {
         && item.endWeek >= weekNum
         && item.courseName
         && item.classRoom
-        && item.teacherName)
+        && item.teacherName
+        && ((
+            item.period
+            &&
+            item.period === period
+        )
+            ||
+            !item.period
+        )
+    )
+    for (let item of course) {
+        if (item.period) {
+            item.courseName = item.courseName + `(${item.period})`
+        }
+    }
     // 排序
     return course.sort(compare('startSection'))
 }
