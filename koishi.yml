@@ -70,6 +70,8 @@ plugins:
   openai:m3otxh: {}
   explosion:udqlk9: {}
   database-postgres:0xo6uq: {}
+  adapter-onebot:fy9dsv:
+    selfId: '898813707'
 nickname:
   - '["Chiya", "chiya"]'
 host: 127.0.0.1

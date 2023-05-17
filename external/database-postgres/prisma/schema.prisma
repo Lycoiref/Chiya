@@ -12,12 +12,12 @@ model bag_users {
   user_qq          BigInt
   group_id         BigInt
   gold             Int?
-  props            String
   spend_total_gold Int?
   get_total_gold   Int?
   get_today_gold   Int?
   spend_today_gold Int?
   property         Json   @db.Json
+  props            Int?
 
   @@unique([user_qq, group_id], map: "bag_group_users_idx1")
 }
@@ -69,6 +69,44 @@ model buff_prices {
   update_date DateTime @db.Timestamp(6)
 }
 
+model buff_skin {
+  id                   Int      @id @default(autoincrement())
+  case_name            String   @db.VarChar(255)
+  name                 String   @db.VarChar(255)
+  skin_name            String   @db.VarChar(255)
+  is_stattrak          Boolean  @default(false)
+  abrasion             String   @db.VarChar(255)
+  color                String   @db.VarChar(255)
+  img_url              String   @db.VarChar(255)
+  steam_price          Float    @default(0)
+  weapon_type          String   @db.VarChar(255)
+  buy_max_price        Float    @default(0)
+  buy_num              Int      @default(0)
+  sell_min_price       Float    @default(0)
+  sell_num             Int      @default(0)
+  sell_reference_price Float    @default(0)
+  create_time          DateTime @db.Timestamptz(6)
+  update_time          DateTime @db.Timestamptz(6)
+}
+
+model buff_skin_log {
+  id                   Int      @id @default(autoincrement())
+  case_name            String   @db.VarChar(255)
+  name                 String   @db.VarChar(255)
+  skin_name            String   @db.VarChar(255)
+  is_stattrak          Boolean  @default(false)
+  abrasion             String   @db.VarChar(255)
+  color                String   @db.VarChar(255)
+  steam_price          Float    @default(0)
+  weapon_type          String   @db.VarChar(255)
+  buy_max_price        Float    @default(0)
+  buy_num              Int      @default(0)
+  sell_min_price       Float    @default(0)
+  sell_num             Int      @default(0)
+  sell_reference_price Float    @default(0)
+  create_time          DateTime @db.Timestamptz(6)
+}
+
 model chat_history {
   id          Int      @id @default(autoincrement())
   user_qq     BigInt
@@ -76,6 +114,13 @@ model chat_history {
   text        String?
   plain_text  String?
   create_time DateTime @db.Timestamptz(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model demo {
+  demo Int?
+
+  @@ignore
 }
 
 model friend_users {
@@ -114,7 +159,20 @@ model github_sub {
 }
 
 model goods_info {
-  id                   Int      @id @default(autoincrement())
+  id                   Int      @id(map: "goods_info_pkey1") @default(autoincrement())
+  goods_name           String
+  goods_price          Int
+  goods_description    String
+  goods_discount       Decimal? @db.Decimal
+  goods_limit_time     BigInt?
+  daily_limit          Int
+  daily_purchase_limit Json     @db.Json
+  is_passive           Boolean
+  icon                 String?  @db.VarChar
+}
+
+model goods_info_bak {
+  id                   Int      @id(map: "goods_info_pkey") @default(autoincrement())
   goods_name           String   @unique(map: "goods_group_users_idx1")
   goods_price          Int
   goods_description    String
@@ -122,8 +180,8 @@ model goods_info {
   goods_limit_time     BigInt?
   daily_limit          Int?     @default(0)
   daily_purchase_limit Json?    @default("{}") @db.Json
-  is_passsive          Boolean  @default(false)
-  icon                 String?  @db.VarChar
+  is_passive           Boolean? @default(false)
+  icon                 String?  @db.VarChar(255)
 }
 
 model group_info {
@@ -135,12 +193,12 @@ model group_info {
 }
 
 model group_info_users {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   user_qq        BigInt
-  user_name      String   @db.VarChar
+  user_name      String    @db.VarChar
   group_id       BigInt
-  user_join_time DateTime @db.Timestamp(6)
-  nickname       String?  @db.VarChar
+  user_join_time DateTime? @db.Timestamp(6)
+  nickname       String?   @db.VarChar
   uid            BigInt?
 
   @@unique([user_qq, group_id], map: "info_group_users_idx1")
@@ -151,11 +209,14 @@ model hdu_auto_sign_user {
   user_qq             BigInt
   hdu_account         String?   @db.VarChar(10)
   hdu_password        String?   @db.VarChar
-  auto_sign           Boolean?
+  auto_sign           Boolean?  @default(false)
   hours               Int?
   minutes             Int?
   sessionid           String?
   session_update_time DateTime? @db.Timestamptz(6)
+  sports_password     String?
+  total_run_times     Int?
+  course_auto_push    Boolean?  @default(true)
 
   @@unique([user_qq, hdu_account], map: "hdu_punch_idx1")
 }
@@ -195,14 +256,30 @@ model omega_pixiv_illusts {
   url        String    @db.VarChar
   created_at DateTime? @db.Timestamptz(6)
   updated_at DateTime? @db.Timestamptz(6)
+  classified Int?
 
   @@unique([pid, url], map: "omega_pixiv_illusts_idx1")
 }
 
+model open_cases_log {
+  id             Int      @id @default(autoincrement())
+  user_qq        BigInt
+  group_id       BigInt
+  case_name      String   @db.VarChar(255)
+  name           String   @db.VarChar(255)
+  skin_name      String   @db.VarChar(255)
+  is_stattrak    Boolean  @default(false)
+  abrasion       String   @db.VarChar(255)
+  abrasion_value Float
+  color          String   @db.VarChar(255)
+  price          Float    @default(0)
+  create_time    DateTime @db.Timestamptz(6)
+}
+
 model open_cases_users {
   id                   Int      @id @default(autoincrement())
-  user_qq              BigInt
-  group_id             BigInt
+  user_qq              String
+  group_id             String
   total_count          Int
   blue_count           Int
   blue_st_count        Int
@@ -214,7 +291,7 @@ model open_cases_users {
   red_st_count         Int
   knife_count          Int
   knife_st_count       Int
-  spend_money          Int
+  spend_money          Float
   make_money           Float
   today_open_total     Int
   open_cases_time_last DateTime @db.Timestamptz(6)
@@ -293,8 +370,8 @@ model setu {
 
 model sign_group_users {
   id                  Int      @id @default(autoincrement())
-  user_qq             String   @db.VarChar
-  group_id            String   @db.VarChar
+  user_qq             String
+  group_id            String
   checkin_count       Int
   checkin_time_last   DateTime @db.Timestamptz(6)
   impression          Decimal  @db.Decimal
@@ -304,6 +381,30 @@ model sign_group_users {
   @@unique([user_qq, group_id], map: "sign_group_users_idx1")
 }
 
+model statistics {
+  id          Int      @id @default(autoincrement())
+  user_qq     BigInt
+  group_id    BigInt?
+  plugin_name String   @db.VarChar(255)
+  create_time DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model test_sql {
+  id Int @id @default(autoincrement())
+}
+
+model user_shop_gold_log {
+  id          Int      @id @default(autoincrement())
+  user_qq     BigInt
+  group_id    BigInt
+  type        Int
+  name        String?  @db.VarChar
+  spend_gold  Int
+  num         Int
+  create_time DateTime @db.Timestamptz(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model word_bank {
   user_qq     BigInt
   group_id    Int?
@@ -313,5 +414,22 @@ model word_bank {
   format      String?  @db.VarChar
   create_time DateTime @db.Timestamp(6)
   update_time DateTime @db.Timestamp(6)
+
+  @@ignore
+}
+
+model word_bank2 {
   id          Int      @id @default(autoincrement())
+  user_qq     BigInt
+  group_id    Int?
+  word_scope  Int
+  word_type   Int
+  status      Boolean
+  problem     String   @db.VarChar
+  answer      String   @db.VarChar
+  placeholder String?  @db.VarChar
+  image_path  String?  @db.VarChar
+  create_time DateTime @db.Timestamp(6)
+  update_time DateTime @db.Timestamp(6)
+  to_me       String?  @db.VarChar(255)
 }

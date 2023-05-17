@@ -4,7 +4,7 @@ import { Context, Schema, h } from 'koishi'
 import { } from '@koishijs/plugin-console'
 import * as path from 'path'
 import { } from 'koishi-plugin-puppeteer'
-import {} from 'koishi-plugin-database-postgres'
+import { } from 'koishi-plugin-database-postgres'
 export const name = 'daily-sign'
 
 export interface Config { }
@@ -26,10 +26,8 @@ export function apply(ctx: Context) {
         console.log('User Sign in')
         if (session.content === '签到') {
             try {
-                let user_qq:any = session.userId
-                let group_id:any = session.guildId
-                user_qq = BigInt(user_qq)
-                group_id = BigInt(group_id)
+                let user_qq: any = session.userId
+                let group_id: any = session.guildId
                 console.log(user_qq, group_id)
                 // user_qq = BigInt(user_qq)
                 // group_id = BigInt(group_id) 
