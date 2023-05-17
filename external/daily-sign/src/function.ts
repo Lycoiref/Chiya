@@ -16,7 +16,6 @@ class User {
     getSignImage = async (random_num: string, checkin_time_last_str: string, impression: string, user: any, userInfo: any) => {
         // 拼接查询字符串
         let query = ''
-        console.log(userInfo);
         for (let key in user) {
             if (user[key] === null) {
                 user[key] = ''
