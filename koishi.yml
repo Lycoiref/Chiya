@@ -35,9 +35,7 @@ plugins:
     assets-local: {}
   group:adapter:
     adapter-onebot:1:
-      selfId: '898813707'
-    ~adapter-onebot:2:
-      selfId: '1319380872'
+      selfId: '1453276792'
     ~adapter-discord:
       intents: 3276799
     ~adapter-telegram: {}
@@ -49,7 +47,7 @@ plugins:
     $if: env.NODE_ENV === 'development'
     hmr:
       root: .
-  user-authority-operation:fkifa2: null
+  ~user-authority-operation:fkifa2: null
   daily-sign:9ca8pn: null
   help:zx40fk: {}
   ~daily-sign:3ud5i7: {}
@@ -62,14 +60,13 @@ plugins:
   ~github:4164nt: {}
   ~logger:8p7qia: {}
   test:yma65s: null
-  invite-manager:w11nuk: null
-  dict:ycfiaf: null
+  ~invite-manager:w11nuk: null
+  ~dict:ycfiaf: null
   roll:fydtjz: null
   weather-query:pmer13: null
   ~admin:3q2rti: {}
   pixiv-rank-search:8vgqxw: null
   sechdule:y0odvd: null
-  cron:a9u7kz: null
   openai:m3otxh: {}
   explosion:udqlk9: {}
   database-postgres:0xo6uq: {}

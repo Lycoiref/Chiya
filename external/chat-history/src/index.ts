@@ -10,7 +10,7 @@ export const Config: Schema<Config> = Schema.object({})
 
 export function apply(ctx: Context) {
   ctx.middleware(async (session, next) => {
-
+    session.send('1')
 
     if (session.subtype === 'group') {
       await database.saveChatHistory(session.guild, parseInt(session.userId), session.content)
