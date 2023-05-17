@@ -45,7 +45,6 @@ export function apply(ctx: Context) {
                     await session.send(h.image(sign_image as Buffer, 'image/png'))
                     await postgres.updateUser(user_qq, group_id, impression, checkin_count, now)
                     ctx.logger('daily-sign').info(`签到图片生成成功 - ${Date.now()}`)
-                    await session.send('觉得签到太丑？来https://github.com/Lycoiref/Chiya_External提交PR！！')
                 } else {
                     // 新建用户
                     user_qq = BigInt(user_qq)
