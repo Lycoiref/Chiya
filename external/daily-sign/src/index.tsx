@@ -64,17 +64,28 @@ export function apply(ctx: Context) {
     })
     ctx.router.get('/daily-sign', async (ctx) => {
         const floaderPath = path.resolve(__dirname, '../static/img/')
-        try{
+        try {
             const files = await fs.readdir(floaderPath)
-            // 随机取files下面的子文件
-            const randomFile = path.resolve(floaderPath, files[Math.floor(Math.random() * files.length)])
-            const allImgs = await fs.readdir(randomFile)
-            // 随机取allImgs 下面的任意一个文件
-            const randomImg = path.resolve(randomFile, allImgs[Math.floor(Math.random() * allImgs.length)])
-            console.log(randomImg)
-            const img = await fs.readFile(randomImg)
-            ctx.body = h.image(img as Buffer, 'image/png')
-        } catch(e) {
+            // 剔除.git, LICENSE, README.md
+            files.splice(files.indexOf('.git'), 1)
+            files.splice(files.indexOf('LICENSE'), 1)
+            files.splice(files.indexOf('README.md'), 1)
+            const file = files[Math.floor(Math.random() * files.length)]
+            // 判断是否是文件夹
+            const stat = await fs.stat(path.resolve(floaderPath, file))
+            if (stat.isDirectory()) {
+                const allImgs = await fs.readdir(path.resolve(floaderPath, file))
+                const randomImg = path.resolve(floaderPath, file, allImgs[Math.floor(Math.random() * allImgs.length)])
+                console.log(randomImg);
+                const img = await fs.readFile(randomImg)
+                ctx.body = h.image(img as Buffer, 'image/png')
+            } else {
+                const imgURL = path.resolve(floaderPath, file)
+                console.log('根图片' + imgURL);
+                const img = await fs.readFile(imgURL)
+                ctx.body = h.image(img as Buffer, 'image/png')
+            }
+        } catch (e) {
             console.log(e)
             ctx.body = 'error'
         }

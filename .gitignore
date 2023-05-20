@@ -13,7 +13,7 @@ yarn-debug.log
 yarn-error.log
 test
 tsconfig.tsbuildinfo
-external/daily-sign/static
+external/daily-sign/static/img
 .eslintcache
 .DS_Store
 .idea
