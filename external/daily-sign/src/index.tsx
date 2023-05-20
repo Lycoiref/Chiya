@@ -47,9 +47,7 @@ export function apply(ctx: Context) {
                     await postgres.updateUser(user_qq, group_id, impression, checkin_count, now)
                     ctx.logger('daily-sign').info(`签到图片生成成功 - ${Date.now()}`)
                 } else {
-                    // 新建用户
-                    user_qq = BigInt(user_qq)
-                    group_id = BigInt(group_id)
+                    // TODO: 对于第一次签到的用户也应该生成签到图片
                     await postgres.createUser(user_qq, group_id)
                     // 其实没成功
                     session.send('签到成功')
@@ -63,11 +61,13 @@ export function apply(ctx: Context) {
         }
     })
     ctx.router.get('/daily-sign', async (ctx) => {
+        // 随机图片服务
         const floaderPath = path.resolve(__dirname, '../static/img/')
         try {
             const files = await fs.readdir(floaderPath)
-            // 剔除.git, LICENSE, README.md
+            // 剔除.git, LICENSE, README.md, .github
             files.splice(files.indexOf('.git'), 1)
+            files.splice(files.indexOf('.github'), 1)
             files.splice(files.indexOf('LICENSE'), 1)
             files.splice(files.indexOf('README.md'), 1)
             const file = files[Math.floor(Math.random() * files.length)]
