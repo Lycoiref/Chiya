@@ -119,7 +119,5 @@ export function apply(ctx: Context) {
         if (stderr3) {
             ctx.logger('daily-sign').error(stderr3)
         }
-        req.status = 200
-        req.body = 'success'
     })
 }
