@@ -5,6 +5,7 @@ import { } from '@koishijs/plugin-console'
 import * as path from 'path'
 import { } from 'koishi-plugin-puppeteer'
 import { } from 'koishi-plugin-database-postgres'
+import fs from 'fs/promises'
 export const name = 'daily-sign'
 
 export interface Config { }
@@ -63,6 +64,23 @@ export function apply(ctx: Context) {
             }
         } else {
             return next()
+        }
+    })
+    ctx.router.get('/daily-sign', async (ctx) => {
+        const floaderPath = path.resolve(__dirname, '../static/img/')
+        try{
+            const files = await fs.readdir(floaderPath)
+            // 随机取files下面的子文件
+            const randomFile = path.resolve(floaderPath, files[Math.floor(Math.random() * files.length)])
+            const allImgs = await fs.readdir(randomFile)
+            // 随机取allImgs 下面的任意一个文件
+            const randomImg = path.resolve(randomFile, allImgs[Math.floor(Math.random() * allImgs.length)])
+            console.log(randomImg)
+            const img = await fs.readFile(randomImg)
+            ctx.body = h.image(img as Buffer, 'image/png')
+        } catch(e) {
+            console.log(e)
+            ctx.body = 'error'
         }
     })
 }
