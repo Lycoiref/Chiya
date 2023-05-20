@@ -97,8 +97,10 @@ export function apply(ctx: Context) {
         exec('git pull', { cwd: path.resolve(__dirname, '../static/img') }, (err: any, stdout: any, stderr: any) => {
             if (err) {
                 ctx.logger('daily-sign').error(err)
+                req.body = 'error'
             } else {
                 ctx.logger('daily-sign').info('成功更新图片仓库')
+                req.body = 'success'
             }
         })
     })
