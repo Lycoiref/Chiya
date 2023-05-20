@@ -7,6 +7,9 @@ import { } from 'koishi-plugin-puppeteer'
 import { } from 'koishi-plugin-database-postgres'
 import fs from 'fs/promises'
 import { exec } from 'child_process'
+import util from 'util'
+
+const execAsync = util.promisify(exec)
 
 export const name = 'daily-sign'
 
@@ -94,14 +97,29 @@ export function apply(ctx: Context) {
     })
     // 当github仓库有更新时，自动更新
     ctx.router.post('/daily-sign/update', async (req) => {
-        exec('git pull', { cwd: path.resolve(__dirname, '../static/img') }, (err: any, stdout: any, stderr: any) => {
-            if (err) {
-                ctx.logger('daily-sign').error(err)
-                req.body = 'error'
-            } else {
-                ctx.logger('daily-sign').info('成功更新图片仓库')
-                req.body = 'success'
-            }
-        })
+        let { stdout, stderr } = await execAsync('git pull', { cwd: path.resolve(__dirname, '../static/img') })
+        if (stdout) {
+            ctx.logger('daily-sign').info('成功拉取最新图库')
+        }
+        if (stderr) {
+            ctx.logger('daily-sign').error(stderr)
+        }
+        const projectPath = path.resolve(__dirname, '../../../')
+        const { stdout: stdout2, stderr: stderr2 } = await execAsync('yarn build', { cwd: projectPath })
+        if (stdout2) {
+            ctx.logger('daily-sign').info('成功构建最新图库')
+        }
+        if (stderr2) {
+            ctx.logger('daily-sign').error(stderr2)
+        }
+        const { stdout: stdout3, stderr: stderr3 } = await execAsync('pm2 restart chiya_koishi', { cwd: projectPath })
+        if (stdout3) {
+            ctx.logger('daily-sign').info('重启服务成功')
+        }
+        if (stderr3) {
+            ctx.logger('daily-sign').error(stderr3)
+        }
+        req.status = 200
+        req.body = 'success'
     })
 }
