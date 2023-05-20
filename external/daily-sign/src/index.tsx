@@ -6,6 +6,8 @@ import * as path from 'path'
 import { } from 'koishi-plugin-puppeteer'
 import { } from 'koishi-plugin-database-postgres'
 import fs from 'fs/promises'
+import { exec } from 'child_process'
+
 export const name = 'daily-sign'
 
 export interface Config { }
@@ -89,5 +91,15 @@ export function apply(ctx: Context) {
             console.log(e)
             ctx.body = 'error'
         }
+    })
+    // 当github仓库有更新时，自动更新
+    ctx.router.post('/daily-sign/update', async (req) => {
+        exec('git pull', { cwd: path.resolve(__dirname, '../static/img') }, (err: any, stdout: any, stderr: any) => {
+            if (err) {
+                ctx.logger('daily-sign').error(err)
+            } else {
+                ctx.logger('daily-sign').info('成功更新图片仓库')
+            }
+        })
     })
 }
