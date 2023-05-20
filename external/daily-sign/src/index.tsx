@@ -24,14 +24,11 @@ export function apply(ctx: Context) {
     // write your plugin here
     ctx.middleware(async (session, next) => {
         const postgres = new User(ctx)
-        console.log('User Sign in')
         if (session.content === '签到') {
             try {
+                ctx.logger('daily-sign').info(`用户签到：${session.userId} ${session.guildId}`)
                 let user_qq: any = session.userId
                 let group_id: any = session.guildId
-                console.log(user_qq, group_id)
-                // user_qq = BigInt(user_qq)
-                // group_id = BigInt(group_id) 
                 let user = await postgres.getUserInfo(user_qq, group_id)
                 if (user) {
                     // 已有用户
@@ -48,8 +45,7 @@ export function apply(ctx: Context) {
                     let sign_image = await postgres.getSignImage(random_num.toFixed(2), checkin_time_last_str, impression.toFixed(2), user, session.author)
                     await session.send(h.image(sign_image as Buffer, 'image/png'))
                     await postgres.updateUser(user_qq, group_id, impression, checkin_count, now)
-                    console.log('返回html');
-                    await session.send('觉得签到太丑？来https://github.com/Lycoiref/Chiya_External提交PR！！')
+                    ctx.logger('daily-sign').info(`签到图片生成成功 - ${Date.now()}`)
                 } else {
                     // 新建用户
                     user_qq = BigInt(user_qq)
